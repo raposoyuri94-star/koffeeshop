@@ -1,2 +1,2 @@
 import { defineConfig } from 'vite';
-export default defineConfig({base:'/Template-Website/',build:{rollupOptions:{output:{manualChunks:{animation:['gsap']}}}}});
+export default defineConfig({base:'/koffeeshop/',build:{rollupOptions:{output:{manualChunks:{animation:['gsap']}}}}});

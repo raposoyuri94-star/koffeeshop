@@ -9,7 +9,7 @@ npm ci
 npm run dev
 ```
 
-Open the printed URL at `/Template-Website/`.
+Open the printed URL at `/koffeeshop/`.
 
 ## Build and verify
 
@@ -23,7 +23,7 @@ The Playwright suite starts a production preview automatically and uses installe
 
 ## GitHub Pages
 
-The site is configured for https://raposoyuri94-star.github.io/Template-Website/.
+The site is configured for https://raposoyuri94-star.github.io/koffeeshop/.
 
 In the repository's Settings > Pages, select **GitHub Actions** as the source. Push to `main`, or run the **Deploy Morrow to GitHub Pages** workflow manually. The workflow installs locked dependencies, builds with Vite, and deploys `dist/` through GitHub's Pages actions.
 
