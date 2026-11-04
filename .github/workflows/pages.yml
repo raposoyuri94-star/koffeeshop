@@ -1,4 +1,4 @@
-name: Deploy Morrow to GitHub Pages
+name: Deploy Kofeeshop to GitHub Pages
 
 on:
   push:
