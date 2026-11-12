@@ -19,10 +19,10 @@ for (const viewport of viewports) {
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
     if (viewport.width <= 900) {
-      const toggle = page.getByRole('button', { name: 'Toggle navigation' });
+      const toggle = page.getByRole('button', { name: 'Alternar navegação' });
       await toggle.click();
       await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-      await page.getByRole('link', { name: 'View the menu', exact: true }).click();
+      await page.getByRole('link', { name: 'Ver o menu', exact: true }).click();
       await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     }
 
@@ -30,9 +30,10 @@ for (const viewport of viewports) {
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth > 0)).toBe(true);
     }
-    for (const category of ['Coffee', 'Breakfast', 'Lunch', 'Something else']) {
+    for (const category of ['Café e chocolate', 'Matcha e bebidas', 'Para comer']) {
       await page.getByRole('button', { name: category, exact: true }).click();
-      const overflow = await page.locator('.hero-content, .favorite, .story-copy, .menu-item, .catering-copy, .footer-wordmark').evaluateAll(elements => elements.filter(element => {
+      await expect.poll(() => page.locator('.menu-sheet img').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+      const overflow = await page.locator('.hero-content, .story-copy, .menu-item, .seasonal-copy, .catering-copy, .closing-note > p, .footer-wordmark, h1, h2, h3').evaluateAll(elements => elements.filter(element => {
         const bounds = element.getBoundingClientRect();
         return bounds.left < -1 || bounds.right > innerWidth + 1 || element.scrollWidth > element.clientWidth + 1;
       }).map(element => element.className));
@@ -43,27 +44,40 @@ for (const viewport of viewports) {
   });
 }
 
-test('menu categories and food links show their matching menu', async ({ page }) => {
+test('uploaded menu pages show their prices and open at full size', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
-  for (const [category, heading] of [['Coffee', 'Espresso'], ['Breakfast', 'Butter croissant'], ['Lunch', 'The cheese toastie'], ['Something else', 'Matcha latte']]) {
+  await expect(page.locator('html')).toHaveAttribute('lang', 'pt-MZ');
+  await expect(page.locator('#favorites, a[href="#favorites"]')).toHaveCount(0);
+  const brokenAnchors = await page.locator('a[href^="#"]').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash));
+  expect(brokenAnchors).toEqual([]);
+  for (const [category, heading, price, filename] of [
+    ['Café e chocolate', 'Expresso simples', '100 MT', 'Koffee%208.jpg'],
+    ['Matcha e bebidas', 'Matcha com leite', '300 MT', 'koffee%207.jpg'],
+    ['Para comer', 'Chamussas de frango', '200 MT', 'koffee%206.jpg'],
+  ]) {
     const button = page.getByRole('button', { name: category, exact: true });
     await button.click();
     await expect(button).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.menu-item')).toHaveCount(4);
     await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
+    await expect(page.locator('.menu-price').first()).toHaveText(price);
+    await expect(page.locator('.menu-sheet img')).toHaveAttribute('src', new RegExp(filename + '$'));
   }
-  await page.getByRole('link', { name: 'Meet your breakfast' }).click();
-  await expect(page.getByRole('button', { name: 'Breakfast', exact: true })).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.getByRole('heading', { name: 'Butter croissant' })).toBeVisible();
+  const popupPromise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: /^Abrir em tamanho original/ }).click();
+  const fullMenu = await popupPromise;
+  await expect(fullMenu).toHaveURL(/koffee%206\.jpg$/);
+  await expect.poll(() => fullMenu.locator('img').evaluate(image => image.complete && image.naturalWidth === 1284)).toBe(true);
+  await fullMenu.close();
 });
 
 test('mobile navigation closes with Escape and returns keyboard focus', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
-  const toggle = page.getByRole('button', { name: 'Toggle navigation' });
+  const toggle = page.getByRole('button', { name: 'Alternar navegação' });
   await toggle.click();
-  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(toggle).toBeFocused();
@@ -71,13 +85,13 @@ test('mobile navigation closes with Escape and returns keyboard focus', async ({
 
 test('catering dialog traps focus, restores scrolling, and can reopen', async ({ page }) => {
   await page.goto('./');
-  const trigger = page.getByRole('button', { name: 'Explore catering' });
+  const trigger = page.getByRole('button', { name: 'Opções para eventos' });
   const dialog = page.getByRole('dialog');
   await trigger.click();
   await expect(dialog).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Close catering details' })).toBeFocused();
+  await expect(page.getByRole('button', { name: 'Fechar detalhes para eventos' })).toBeFocused();
   await page.keyboard.press('Shift+Tab');
-  await expect(page.getByRole('button', { name: 'Sounds good' })).toBeFocused();
+  await expect(page.getByRole('button', { name: 'Combinado' })).toBeFocused();
   expect(await page.evaluate(() => document.body.style.overflow)).toBe('hidden');
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
@@ -85,15 +99,15 @@ test('catering dialog traps focus, restores scrolling, and can reopen', async ({
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('');
   await trigger.click();
   await expect(dialog).toBeVisible();
-  await page.getByRole('button', { name: 'Sounds good' }).click();
+  await page.getByRole('button', { name: 'Combinado' }).click();
   await expect(dialog).not.toBeVisible();
 });
 
 test('coffee sticker responds and respects reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
-  await page.getByRole('button', { name: 'Make it rain coffee beans' }).click();
-  await expect(page.getByRole('status')).toHaveText('A little coffee joy, on the house.');
+  await page.getByRole('button', { name: 'Fazer chover grãos de café' }).click();
+  await expect(page.getByRole('status')).toHaveText('Uma chuva de grãos de café.');
   await expect(page.locator('.falling-bean')).toHaveCount(18);
   expect(await page.locator('.falling-bean').first().evaluate(element => getComputedStyle(element).animationName)).toBe('none');
   await expect(page.locator('.bean-rain')).toHaveCount(0, { timeout: 5000 });

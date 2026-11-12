@@ -20,5 +20,10 @@ export function CoffeeDoodle() {
 }
 
 export default function Brand() {
-  return <><Flower /><span className="brand-wordmark">kofeeshop<span className="brand-registered">™</span></span></>;
+  return (
+    <>
+      <Flower />
+      <span className="brand-wordmark">kofeeshop</span>
+    </>
+  );
 }

@@ -1,0 +1,147 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  padding: 14px 20px;
+  background: var(--ink);
+  color: var(--white);
+  z-index: 100;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.flower-center {
+  fill: var(--soft-gray);
+}
+
+.brand-wordmark {
+  font-family: var(--display);
+  font-size: 39px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.button {
+  min-height: 50px;
+  padding: 14px 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: background .2s;
+}
+
+.button-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.button-dark:hover {
+  background: #333333;
+}
+
+.button-light {
+  background: var(--soft-gray);
+  color: var(--ink);
+}
+
+.button-light:hover {
+  background: var(--white);
+}
+
+.section-space {
+  padding: 105px 7%;
+}
+
+.handwritten {
+  font-family: Georgia,serif;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1.4;
+  letter-spacing: -.7px;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+  margin-top: 16px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.photo-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-family: Georgia,serif;
+  font-style: italic;
+  line-height: 1.2;
+  font-size: 32px;
+  color: var(--white);
+  text-shadow: 0 2px 12px #000000;
+}
+
+@media (min-width: 1700px) {
+  .section-space {
+    padding-inline: max(7%,calc((100vw - 1500px)/2));
+  }
+}
+
+@media (max-width: 1100px) {
+  .brand-wordmark {
+    font-size: 34px;
+  }
+  .section-space {
+    padding: 80px 6%;
+  }
+}
+
+@media (max-width: 650px) {
+  .brand-wordmark {
+    font-size: 29px;
+    letter-spacing: -1.7px;
+  }
+  .section-space {
+    padding: 65px 6%;
+  }
+  .handwritten {
+    font-size: 20px;
+  }
+  .text-link {
+    margin-top: 12px;
+  }
+  .photo-caption {
+    font-size: 26px;
+    bottom: 25px;
+    left: 6%;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand-wordmark {
+    font-size: 26px;
+  }
+}

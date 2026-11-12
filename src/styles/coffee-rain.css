@@ -1,0 +1,48 @@
+.bean-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.falling-bean {
+  position: absolute;
+  left: var(--bean-x);
+  top: -75px;
+  width: 28px;
+  height: 40px;
+  background: #4a4a4a;
+  border: 2px solid #888888;
+  border-radius: 50%;
+  box-shadow: 2px 3px 0 #00000022;
+  animation: bean-fall 2.7s var(--bean-delay) ease-in both;
+}
+
+.falling-bean::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 11px;
+  width: 4px;
+  border-left: 2px solid #000000;
+  border-radius: 50%;
+  transform: rotate(12deg);
+}
+
+@keyframes bean-fall {
+  from {
+    transform: translateY(0) rotate(var(--bean-rotation));
+  }
+  to {
+    transform: translate(var(--bean-drift),calc(100svh + 130px)) rotate(calc(var(--bean-rotation) + 490deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling-bean {
+    top: 20%;
+    transform: rotate(var(--bean-rotation));
+  }
+}
