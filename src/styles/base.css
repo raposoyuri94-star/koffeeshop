@@ -23,6 +23,7 @@
 }
 
 :root {
+  --header-height: 94px;
   --ink: #000000;
   --soft-gray: #f2f2f2;
   --white: #ffffff;
@@ -43,7 +44,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 30px;
+  scroll-padding-top: calc(var(--header-height) + 24px);
 }
 
 body {

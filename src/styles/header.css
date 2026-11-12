@@ -1,12 +1,13 @@
 .site-header {
-  min-height: 94px;
+  min-height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 30px;
   padding: 18px 5%;
   background: var(--soft-gray);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
 }
 
@@ -59,8 +60,10 @@
 }
 
 @media (max-width: 900px) {
+  :root {
+    --header-height: 80px;
+  }
   .site-header {
-    min-height: 80px;
     padding: 17px 6%;
   }
   .mobile-toggle {
@@ -97,6 +100,9 @@
     display: none;
     position: absolute;
     top: 100%;
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     left: 0;
     right: 0;
     padding: 20px 6% 26px;
@@ -127,8 +133,10 @@
 }
 
 @media (max-width: 650px) {
+  :root {
+    --header-height: 76px;
+  }
   .site-header {
-    min-height: 76px;
     padding: 14px 6%;
     gap: 15px;
   }
