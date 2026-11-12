@@ -1,4 +1,4 @@
-const street = 'Av. Josina Machel, prédio n.º 1033';
+const street = 'Av. Josina Machel, n.º 1015';
 const city = 'Maputo, Moçambique';
 const query = encodeURIComponent(`${street}, ${city}`);
 
