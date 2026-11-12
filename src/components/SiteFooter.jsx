@@ -1,7 +1,7 @@
 import React from 'react';
 import { location } from '../data/location';
 
-export default function SiteFooter({ onOpenCatering }) {
+export default function SiteFooter({ onOpenCatering, homeHref = '' }) {
   return (
     <footer className="site-footer">
       <div className="footer-top">
@@ -10,14 +10,15 @@ export default function SiteFooter({ onOpenCatering }) {
           <p>O assunto fica para o próximo café.</p>
         </div>
         <nav aria-label="Navegação do rodapé">
-          <a href="#menu">O nosso menu</a>
-          <a href="#story">A nossa história</a>
-          <a href="#location">Onde estamos</a>
+          <a href={`${homeHref}#menu`}>O nosso menu</a>
+          <a href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>Bebidas da estação</a>
+          <a href={`${homeHref}#story`}>A nossa história</a>
+          <a href={`${homeHref}#location`}>Onde estamos</a>
           <button onClick={onOpenCatering}>Eventos</button>
-          <a href="#home">Voltar ao topo</a>
+          <a href={homeHref ? '#main' : '#home'}>Voltar ao topo</a>
         </nav>
       </div>
-      <a className="footer-wordmark" href="#home" aria-label="Página inicial da Kofeeshop">
+      <a className="footer-wordmark" href={`${homeHref}#home`} aria-label="Página inicial da Kofeeshop">
         kofeeshop
       </a>
       <div className="footer-bottom">

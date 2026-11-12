@@ -49,6 +49,9 @@ export default function MenuSection() {
           />
         </a>
       </figure>
+      <a className="text-link" href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>
+        Ver as bebidas da estação
+      </a>
     </section>
   );
 }

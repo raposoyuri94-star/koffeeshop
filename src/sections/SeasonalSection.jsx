@@ -11,11 +11,12 @@ export default function SeasonalSection() {
         rel="noreferrer"
         aria-label="Ver o cartaz de bebidas de abóbora e especiarias em tamanho original (abre num novo separador)"
       >
-        <img src={images.seasonal.src} alt={images.seasonal.alt} width="1258" height="1669" loading="lazy" />
+        <img src={images.seasonal.src} alt={images.seasonal.alt} width="1258" height="1669" />
       </a>
       <div className="seasonal-copy">
+        <a className="text-link seasonal-back" href={`${import.meta.env.BASE_URL}#menu`}>Voltar ao menu</a>
         <p className="handwritten">Uma mudança no copo</p>
-        <h2 id="seasonal-heading">Especiarias<br />com gelo</h2>
+        <h1 id="seasonal-heading">Especiarias<br />com gelo</h1>
         <p>
           O cartaz junta quatro maneiras de levar abóbora e especiarias para o copo,
           com latte, chai, matcha ou Red Bull. Todas são servidas com gelo.

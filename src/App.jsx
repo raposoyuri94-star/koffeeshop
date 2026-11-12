@@ -12,6 +12,8 @@ import LocationSection from './sections/LocationSection';
 import useCoffeeRain from './hooks/useCoffeeRain';
 
 export default function App() {
+  const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
+  const homeHref = isSeasonalPage ? import.meta.env.BASE_URL : '';
   const [cateringOpen, setCateringOpen] = useState(false);
   const { batch, isRaining, makeItRain } = useCoffeeRain();
 
@@ -26,16 +28,21 @@ export default function App() {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main">Saltar para o conteúdo</a>
-      <SiteHeader onOpenCatering={openCatering} />
+      <SiteHeader onOpenCatering={openCatering} homeHref={homeHref} />
       <main id="main">
-        <HeroSection onMakeItRain={makeItRain} />
-        <StorySection />
-        <MenuSection />
-        <SeasonalSection />
-        <CateringSection onOpenCatering={openCatering} />
-        <LocationSection />
+        {isSeasonalPage ? (
+          <SeasonalSection />
+        ) : (
+          <>
+            <HeroSection onMakeItRain={makeItRain} />
+            <StorySection />
+            <MenuSection />
+            <CateringSection onOpenCatering={openCatering} />
+            <LocationSection />
+          </>
+        )}
       </main>
-      <SiteFooter onOpenCatering={openCatering} />
+      <SiteFooter onOpenCatering={openCatering} homeHref={homeHref} />
       <CateringDialog open={cateringOpen} onClose={closeCatering} />
       <CoffeeRain visible={isRaining} batch={batch} />
     </div>

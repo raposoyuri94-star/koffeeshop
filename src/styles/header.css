@@ -44,6 +44,10 @@
   display: none;
 }
 
+.main-navigation > .mobile-navigation-link {
+  display: none;
+}
+
 @media (max-width: 1100px) {
   .main-navigation {
     gap: 23px;
@@ -104,6 +108,9 @@
     gap: 8px;
   }
   .main-navigation.is-open {
+    display: flex;
+  }
+  .main-navigation > .mobile-navigation-link {
     display: flex;
   }
   .main-navigation > a:not(.button), .main-navigation > button {
