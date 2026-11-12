@@ -1,4 +1,5 @@
 import React from 'react';
+import { location } from '../data/location';
 
 export default function SiteFooter({ onOpenCatering }) {
   return (
@@ -11,6 +12,7 @@ export default function SiteFooter({ onOpenCatering }) {
         <nav aria-label="Navegação do rodapé">
           <a href="#menu">O nosso menu</a>
           <a href="#story">A nossa história</a>
+          <a href="#location">Onde estamos</a>
           <button onClick={onOpenCatering}>Eventos</button>
           <a href="#home">Voltar ao topo</a>
         </nav>
@@ -20,7 +22,11 @@ export default function SiteFooter({ onOpenCatering }) {
       </a>
       <div className="footer-bottom">
         <small>Kofeeshop {new Date().getFullYear()}</small>
-        <small>Morada e horário a anunciar.</small>
+        <small>
+          <a href={location.mapsUrl} target="_blank" rel="noopener noreferrer">
+            {location.street}, {location.city}
+          </a>
+        </small>
         <span>Fica mais cinco minutos</span>
       </div>
     </footer>

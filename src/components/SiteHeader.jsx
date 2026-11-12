@@ -52,6 +52,7 @@ export default function SiteHeader({ onOpenCatering }) {
         aria-label="Navegação principal"
       >
         <a href="#story" onClick={closeMenu}>A nossa história</a>
+        <a href="#location" onClick={closeMenu}>Onde estamos</a>
         <button onClick={openCatering}>Eventos</button>
         <a className="button button-dark nav-menu" href="#menu" onClick={closeMenu}>
           Ver o menu

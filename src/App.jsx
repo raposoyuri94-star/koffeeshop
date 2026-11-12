@@ -7,6 +7,7 @@ import HeroSection from './sections/HeroSection';
 import StorySection from './sections/StorySection';
 import MenuSection from './sections/MenuSection';
 import CateringSection from './sections/CateringSection';
+import LocationSection from './sections/LocationSection';
 import useCoffeeRain from './hooks/useCoffeeRain';
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
         <StorySection />
         <MenuSection />
         <CateringSection onOpenCatering={openCatering} />
+        <LocationSection />
       </main>
       <SiteFooter onOpenCatering={openCatering} />
       <CateringDialog open={cateringOpen} onClose={closeCatering} />
