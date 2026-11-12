@@ -28,3 +28,29 @@ for (const width of [320, 768, 1366]) {
     expect(errors).toEqual([]);
   });
 }
+
+for (const width of [320, 1366]) {
+  test(`location links from another page land below the navbar at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+
+    async function expectLocationAligned() {
+      await expect(page).toHaveURL(/\/koffeeshop\/#location$/);
+      await expect.poll(() => page.locator('#location').evaluate(section => {
+        const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+        return Math.abs(section.getBoundingClientRect().top - offset);
+      })).toBeLessThan(2);
+    }
+
+    for (const navigation of ['#main-navigation', '.site-footer']) {
+      await page.goto('./bebidas-sazonais.html');
+      if (navigation === '#main-navigation' && width <= 900) {
+        await page.locator('.mobile-toggle').click();
+      }
+      await page.locator(navigation).getByRole('link', { name: 'Onde estamos', exact: true }).click();
+      await expectLocationAligned();
+      await page.reload();
+      await expectLocationAligned();
+    }
+  });
+}

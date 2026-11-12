@@ -10,12 +10,14 @@ import SeasonalSection from './sections/SeasonalSection';
 import CateringSection from './sections/CateringSection';
 import LocationSection from './sections/LocationSection';
 import useCoffeeRain from './hooks/useCoffeeRain';
+import useInitialHashScroll from './hooks/useInitialHashScroll';
 
 export default function App() {
   const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
   const homeHref = isSeasonalPage ? import.meta.env.BASE_URL : '';
   const [cateringOpen, setCateringOpen] = useState(false);
   const { batch, isRaining, makeItRain } = useCoffeeRain();
+  useInitialHashScroll();
 
   function openCatering() {
     setCateringOpen(true);
