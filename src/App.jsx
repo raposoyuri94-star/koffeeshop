@@ -6,6 +6,7 @@ import CoffeeRain from './components/CoffeeRain';
 import HeroSection from './sections/HeroSection';
 import StorySection from './sections/StorySection';
 import MenuSection from './sections/MenuSection';
+import SeasonalSection from './sections/SeasonalSection';
 import CateringSection from './sections/CateringSection';
 import LocationSection from './sections/LocationSection';
 import useCoffeeRain from './hooks/useCoffeeRain';
@@ -30,6 +31,7 @@ export default function App() {
         <HeroSection onMakeItRain={makeItRain} />
         <StorySection />
         <MenuSection />
+        <SeasonalSection />
         <CateringSection onOpenCatering={openCatering} />
         <LocationSection />
       </main>

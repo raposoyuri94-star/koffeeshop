@@ -35,8 +35,7 @@ export default function HeroSection({ onMakeItRain }) {
           <span className="sticker-hint">toque para agitar</span>
         </button>
         <div className="hero-bottom">
-          <span>O resto pode esperar</span>
-          <a href="#story">À mesa da Kofeeshop</a>
+          
         </div>
       </section>
       <div className="good-things-strip" aria-label="Café com gelo, matcha e tempo à mesa">

@@ -1,0 +1,68 @@
+.seasonal-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(30px, 6vw, 90px);
+  background: var(--soft-gray);
+}
+
+.seasonal-poster {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.seasonal-poster img {
+  height: auto;
+  object-fit: contain;
+}
+
+.seasonal-copy {
+  min-width: 0;
+}
+
+.seasonal-copy .handwritten {
+  margin-bottom: 18px;
+}
+
+.seasonal-copy h2 {
+  font-size: clamp(32px, 3.7vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+.seasonal-copy > p:not(.handwritten) {
+  font-size: 14px;
+  margin-top: 22px;
+  max-width: 360px;
+}
+
+.seasonal-copy > .seasonal-note {
+  font-size: 11px;
+}
+
+@media (max-width: 650px) {
+  .seasonal-feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .seasonal-copy .handwritten {
+    font-size: 18px;
+  }
+
+  .seasonal-copy h2 {
+    font-size: clamp(30px, 8vw, 46px);
+  }
+
+  .seasonal-copy > p:not(.handwritten) {
+    font-size: 13px;
+  }
+
+  .seasonal-copy > .seasonal-note {
+    font-size: 11px;
+  }
+}

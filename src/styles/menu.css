@@ -78,60 +78,6 @@
   object-fit: contain;
 }
 
-.menu-sheet-caption {
-  font-size: 12px;
-  margin-top: 12px;
-}
-
-.seasonal-feature {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  align-items: center;
-  gap: clamp(30px,6vw,90px);
-  margin-top: 65px;
-  padding: clamp(24px,4vw,55px);
-  background: var(--soft-gray);
-  border-radius: 8px;
-}
-
-.seasonal-poster {
-  display: block;
-  width: 100%;
-  max-width: 360px;
-  justify-self: center;
-  overflow: hidden;
-  border-radius: 5px;
-}
-
-.seasonal-poster img {
-  height: auto;
-  object-fit: contain;
-}
-
-.seasonal-copy {
-  min-width: 0;
-}
-
-.seasonal-copy .handwritten {
-  margin-bottom: 18px;
-}
-
-.seasonal-copy h3 {
-  font-size: clamp(32px,3.7vw,54px);
-  line-height: 1.08;
-  letter-spacing: -.045em;
-}
-
-.seasonal-copy > p:not(.handwritten) {
-  font-size: 14px;
-  margin-top: 22px;
-  max-width: 360px;
-}
-
-.seasonal-feature .seasonal-copy > .seasonal-note {
-  font-size: 11px;
-}
-
 @media (min-width: 1700px) {
   .menu-heading h2 {
     font-size: 82px;
@@ -166,9 +112,6 @@
   .menu-sheet {
     margin-top: 22px;
   }
-  .menu-sheet-caption {
-    font-size: 11px;
-  }
   .menu-heading .handwritten {
     font-size: 18px;
   }
@@ -188,21 +131,6 @@
   .menu-tabs button {
     font-size: 12px;
     padding: 11px 17px;
-  }
-  .seasonal-feature {
-    grid-template-columns: minmax(0,1fr);
-    margin-top: 40px;
-    padding: 22px;
-    gap: 26px;
-  }
-  .seasonal-copy .handwritten {
-    font-size: 18px;
-  }
-  .seasonal-copy h3 {
-    font-size: clamp(30px,8vw,46px);
-  }
-  .seasonal-copy > p:not(.handwritten) {
-    font-size: 13px;
   }
 }
 
