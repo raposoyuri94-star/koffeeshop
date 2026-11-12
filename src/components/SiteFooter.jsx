@@ -29,6 +29,7 @@ export default function SiteFooter({ onOpenCatering }) {
         </small>
         <span>Fica mais cinco minutos</span>
       </div>
+      <p className="footer-credit">Made by <strong>Nexzoagency</strong></p>
     </footer>
   );
 }

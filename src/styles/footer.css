@@ -71,6 +71,12 @@
   font-size: 11px;
 }
 
+.footer-credit {
+  margin-top: 16px;
+  font-size: 11px;
+  text-align: right;
+}
+
 @media (max-width: 1100px) {
   .footer-top > nav {
     gap: 20px;
