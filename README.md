@@ -22,7 +22,7 @@ src/
   style.css            Stylesheet imports in cascade order
   components/          Header, footer, branding, dialog, and coffee animation
   sections/            Hero, story, menu, and events
-  data/                Images, menu items, and event options
+  data/                Images, menu pages, and event options
   hooks/               Coffee animation state and timer
   styles/              Base, shared, and section styles with their media queries
 ```
@@ -44,7 +44,7 @@ Image paths and Portuguese descriptions are centralized in `src/data/images.js`.
 | `koffee 6.jpg` | Food menu page |
 | `Koffe.jpeg` | Pumpkin spice poster beside the menu, with a full-size link |
 
-Update the alt descriptions when replacing photos. Menu page metadata and a selection of items with prices transcribed from the supplied menus live in `src/data/menu.js`. The complete original menu pages open at full size from the image or its text link. Prices are shown in meticais (MT); paired prices follow those printed in the menu. Event options live in `src/data/catering.js` and remain illustrative. Page copy lives with its section in `src/sections/`, and the dialog and footer copy live in their respective files in `src/components/`. Ordering and payment services are not connected. Add the real location and opening hours to `src/components/SiteFooter.jsx` when available.
+Update the alt descriptions when replacing photos. Menu page metadata lives in `src/data/menu.js`. Each category displays its original menu image and a short caption; clicking the image opens it at full size. Products and prices are shown in the supplied artwork. Event options live in `src/data/catering.js` and remain illustrative. Page copy lives with its section in `src/sections/`, and the dialog and footer copy live in their respective files in `src/components/`. Ordering and payment services are not connected. Add the real location and opening hours to `src/components/SiteFooter.jsx` when available.
 
 ## Design direction
 

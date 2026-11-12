@@ -49,28 +49,9 @@ export default function MenuSection() {
           />
         </a>
         <figcaption className="menu-sheet-caption">
-          <span>{selectedMenu.caption}</span>
-          <a className="text-link" href={menuImage.src} target="_blank" rel="noreferrer">
-            Abrir em tamanho original <span className="sr-only">(abre num novo separador)</span>
-          </a>
+          {selectedMenu.caption}
         </figcaption>
       </figure>
-      <p className="menu-picks-heading">Alguns pedidos desta página</p>
-      <div className="menu-list" aria-live="polite" aria-atomic="true">
-        {selectedMenu.items.map(item => (
-          <article className="menu-item" key={item.name}>
-            <div className="menu-item-heading">
-              <h3>{item.name}</h3>
-              <span className="menu-price">{item.price}</span>
-            </div>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-      <div className="menu-footnote">
-        <p>Se tem alergias ou restrições alimentares, fale connosco antes de pedir.</p>
-        <span>Preços em meticais (MT)</span>
-      </div>
       <SeasonalFeature />
     </section>
   );

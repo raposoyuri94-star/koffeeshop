@@ -63,12 +63,6 @@
   font-size: 12px;
 }
 
-.menu-list {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  column-gap: 75px;
-}
-
 .menu-sheet {
   margin: 30px 0 0;
 }
@@ -85,71 +79,8 @@
 }
 
 .menu-sheet-caption {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
   font-size: 12px;
-  margin-top: 8px;
-}
-
-.menu-sheet-caption .text-link {
-  margin-top: 0;
-  flex-shrink: 0;
-}
-
-.menu-picks-heading {
-  margin-top: 32px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--gray);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.menu-item {
-  padding: 33px 0;
-  border-bottom: 1px solid #00000026;
-  min-width: 0;
-}
-
-.menu-item-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 18px;
-}
-
-.menu-item h3 {
-  font-size: 28px;
-  letter-spacing: -1px;
-  line-height: 1.2;
-}
-
-.menu-price {
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-.menu-item > p {
-  font-size: 13px;
   margin-top: 12px;
-  max-width: 440px;
-}
-
-.menu-footnote {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-top: 25px;
-  font-size: 11px;
-}
-
-.menu-footnote > span {
-  white-space: nowrap;
-  opacity: .75;
 }
 
 .seasonal-feature {
@@ -211,9 +142,6 @@
   .menu-heading > p {
     font-size: 13px;
   }
-  .menu-list {
-    column-gap: 40px;
-  }
   .menu-tabs button {
     padding: 12px 19px;
   }
@@ -232,9 +160,6 @@
   .menu-heading > p > br {
     display: none;
   }
-  .menu-item h3 {
-    font-size: 25px;
-  }
 }
 
 @media (max-width: 650px) {
@@ -242,19 +167,7 @@
     margin-top: 22px;
   }
   .menu-sheet-caption {
-    display: block;
     font-size: 11px;
-  }
-  .menu-sheet-caption > span {
-    display: block;
-    margin-top: 12px;
-  }
-  .menu-sheet-caption .text-link {
-    font-size: 12px;
-  }
-  .menu-picks-heading {
-    margin-top: 24px;
-    font-size: 13px;
   }
   .menu-heading .handwritten {
     font-size: 18px;
@@ -275,27 +188,6 @@
   .menu-tabs button {
     font-size: 12px;
     padding: 11px 17px;
-  }
-  .menu-list {
-    grid-template-columns: 1fr;
-  }
-  .menu-item {
-    padding: 26px 0;
-  }
-  .menu-item h3 {
-    font-size: 26px;
-  }
-  .menu-item > p {
-    font-size: 13px;
-  }
-  .menu-price {
-    font-size: 15px;
-  }
-  .menu-footnote {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 9px;
-    font-size: 11px;
   }
   .seasonal-feature {
     grid-template-columns: minmax(0,1fr);

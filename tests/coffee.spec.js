@@ -33,7 +33,7 @@ for (const viewport of viewports) {
     for (const category of ['Café e chocolate', 'Matcha e bebidas', 'Para comer']) {
       await page.getByRole('button', { name: category, exact: true }).click();
       await expect.poll(() => page.locator('.menu-sheet img').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-      const overflow = await page.locator('.hero-content, .story-copy, .menu-item, .seasonal-copy, .catering-copy, .closing-note > p, .footer-wordmark, h1, h2, h3').evaluateAll(elements => elements.filter(element => {
+      const overflow = await page.locator('.hero-content, .story-copy, .menu-sheet, .seasonal-copy, .catering-copy, .closing-note > p, .footer-wordmark, h1, h2, h3').evaluateAll(elements => elements.filter(element => {
         const bounds = element.getBoundingClientRect();
         return bounds.left < -1 || bounds.right > innerWidth + 1 || element.scrollWidth > element.clientWidth + 1;
       }).map(element => element.className));
@@ -44,28 +44,25 @@ for (const viewport of viewports) {
   });
 }
 
-test('uploaded menu pages show their prices and open at full size', async ({ page }) => {
+test('uploaded menu pages switch categories and open from the image', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-MZ');
   await expect(page.locator('#favorites, a[href="#favorites"]')).toHaveCount(0);
   const brokenAnchors = await page.locator('a[href^="#"]').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash));
   expect(brokenAnchors).toEqual([]);
-  for (const [category, heading, price, filename] of [
-    ['Café e chocolate', 'Expresso simples', '100 MT', 'Koffee%208.jpg'],
-    ['Matcha e bebidas', 'Matcha com leite', '300 MT', 'koffee%207.jpg'],
-    ['Para comer', 'Chamussas de frango', '200 MT', 'koffee%206.jpg'],
+  for (const [category, filename] of [
+    ['Café e chocolate', 'Koffee%208.jpg'],
+    ['Matcha e bebidas', 'koffee%207.jpg'],
+    ['Para comer', 'koffee%206.jpg'],
   ]) {
     const button = page.getByRole('button', { name: category, exact: true });
     await button.click();
     await expect(button).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.menu-item')).toHaveCount(4);
-    await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
-    await expect(page.locator('.menu-price').first()).toHaveText(price);
     await expect(page.locator('.menu-sheet img')).toHaveAttribute('src', new RegExp(filename + '$'));
   }
   const popupPromise = page.waitForEvent('popup');
-  await page.getByRole('link', { name: /^Abrir em tamanho original/ }).click();
+  await page.locator('.menu-sheet-link').click();
   const fullMenu = await popupPromise;
   await expect(fullMenu).toHaveURL(/koffee%206\.jpg$/);
   await expect.poll(() => fullMenu.locator('img').evaluate(image => image.complete && image.naturalWidth === 1284)).toBe(true);
