@@ -8,7 +8,15 @@ for (const width of [320, 768, 1366]) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('./');
     await expect(page.locator('#seasonal')).toHaveCount(0);
-    await page.locator('#menu').getByRole('link', { name: 'Ver as bebidas da estação' }).click();
+    const initialURL = page.url();
+    await page.locator('#menu').getByRole('button', { name: 'Ver as bebidas da estação' }).click();
+    const viewer = page.getByRole('dialog', { name: 'Bebidas da estação', exact: true });
+    await expect(viewer).toBeVisible();
+    await viewer.getByRole('button', { name: 'Fechar imagem' }).click();
+    await expect(viewer).toHaveCount(0);
+    expect(page.url()).toBe(initialURL);
+    expect(page.context().pages()).toHaveLength(1);
+    await page.goto('./bebidas-sazonais.html');
     await expect(page).toHaveURL(/\/koffeeshop\/bebidas-sazonais\.html$/);
     await expect(page).toHaveTitle('Bebidas da estação | Kofeeshop');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Especiarias');

@@ -54,9 +54,9 @@ export default function MenuSection({ onOpenImage }) {
           />
         </button>
       </figure>
-      <a className="text-link" href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>
+      <button type="button" className="text-link seasonal-preview" aria-haspopup="dialog" onClick={() => onOpenImage({ ...images.seasonal, title: 'Bebidas da estação', width: 1258, height: 1669 })}>
         Ver as bebidas da estação
-      </a>
+      </button>
     </section>
   );
 }

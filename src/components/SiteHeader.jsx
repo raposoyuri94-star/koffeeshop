@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Brand from './Brand';
 
-export default function SiteHeader({ onOpenCatering, homeHref = '' }) {
+export default function SiteHeader({ onOpenCatering, onOpenSeasonalImage, homeHref = '' }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigationToggle = useRef(null);
 
@@ -28,6 +28,12 @@ export default function SiteHeader({ onOpenCatering, homeHref = '' }) {
     onOpenCatering();
   }
 
+  function openSeasonalImage() {
+    if (menuOpen) navigationToggle.current?.focus();
+    closeMenu();
+    onOpenSeasonalImage();
+  }
+
   return (
     <header className="site-header">
       <a className="logo" href={`${homeHref}#home`} aria-label="Página inicial da Kofeeshop">
@@ -52,9 +58,9 @@ export default function SiteHeader({ onOpenCatering, homeHref = '' }) {
         aria-label="Navegação principal"
       >
         <a href={`${homeHref}#story`} onClick={closeMenu}>A nossa história</a>
-        <a className="mobile-navigation-link" href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`} onClick={closeMenu}>
+        <button type="button" className="mobile-navigation-link" aria-haspopup="dialog" onClick={openSeasonalImage}>
           Bebidas da estação
-        </a>
+        </button>
         <a href={`${homeHref}#location`} onClick={closeMenu}>Onde estamos</a>
         <button onClick={openCatering}>Eventos</button>
         <a className="button button-dark nav-menu" href={`${homeHref}#menu`} onClick={closeMenu}>

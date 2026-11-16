@@ -1,6 +1,30 @@
 import { test, expect } from '@playwright/test';
 
 for (const width of [390, 1920]) {
+  test(`seasonal drinks entry points have a close button at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('./');
+    const initialURL = page.url();
+    const sources = ['#menu', '.site-footer'];
+    if (width < 901) sources.push('#main-navigation');
+    for (const source of sources) {
+      if (source === '#main-navigation') await page.getByRole('button', { name: 'Alternar navegação' }).click();
+      await page.locator(source).getByRole('button', { name: source === '#menu' ? 'Ver as bebidas da estação' : 'Bebidas da estação', exact: true }).click();
+      const viewer = page.getByRole('dialog', { name: 'Bebidas da estação', exact: true });
+      await expect(viewer).toBeVisible();
+      await expect(viewer.locator('img')).toHaveAttribute('src', /Koffe\.jpeg$/);
+      const close = viewer.getByRole('button', { name: 'Fechar imagem', exact: true });
+      await expect(close).toBeInViewport();
+      await close.click();
+      await expect(viewer).toHaveCount(0);
+      expect(page.url()).toBe(initialURL);
+      expect(page.context().pages()).toHaveLength(1);
+    }
+  });
+}
+
+for (const width of [390, 1920]) {
   test(`all content photos and menu categories stay on the page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1080 });
     await page.emulateMedia({ reducedMotion: 'reduce' });

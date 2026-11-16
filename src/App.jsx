@@ -12,6 +12,7 @@ import CateringSection from './sections/CateringSection';
 import LocationSection from './sections/LocationSection';
 import useCoffeeRain from './hooks/useCoffeeRain';
 import useInitialHashScroll from './hooks/useInitialHashScroll';
+import { images } from './data/images';
 
 export default function App() {
   const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
@@ -29,10 +30,14 @@ export default function App() {
     setCateringOpen(false);
   }
 
+  function openSeasonalImage() {
+    setPreviewImage({ ...images.seasonal, title: 'Bebidas da estação', width: 1258, height: 1669 });
+  }
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main">Saltar para o conteúdo</a>
-      <SiteHeader onOpenCatering={openCatering} homeHref={homeHref} />
+      <SiteHeader onOpenCatering={openCatering} onOpenSeasonalImage={openSeasonalImage} homeHref={homeHref} />
       <main id="main">
         {isSeasonalPage ? (
           <SeasonalSection onOpenImage={setPreviewImage} />
@@ -46,7 +51,7 @@ export default function App() {
           </>
         )}
       </main>
-      <SiteFooter onOpenCatering={openCatering} homeHref={homeHref} />
+      <SiteFooter onOpenCatering={openCatering} onOpenSeasonalImage={openSeasonalImage} homeHref={homeHref} />
       <CateringDialog open={cateringOpen} onClose={closeCatering} />
       {previewImage && <ImageViewer image={previewImage} onClose={() => setPreviewImage(null)} />}
       <CoffeeRain visible={isRaining} batch={batch} />

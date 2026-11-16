@@ -4,7 +4,7 @@ import InstagramIcon from './InstagramIcon';
 import { location } from '../data/location';
 import { instagram } from '../data/social';
 
-export default function SiteFooter({ onOpenCatering, homeHref = '' }) {
+export default function SiteFooter({ onOpenCatering, onOpenSeasonalImage, homeHref = '' }) {
   return (
     <footer className="site-footer">
       <div className="footer-top">
@@ -18,7 +18,7 @@ export default function SiteFooter({ onOpenCatering, homeHref = '' }) {
           <h2 className="footer-heading">Por aqui</h2>
           <div className="footer-links">
             <a href={`${homeHref}#menu`}>O nosso menu</a>
-            <a href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>Bebidas da estação</a>
+            <button type="button" aria-haspopup="dialog" onClick={onOpenSeasonalImage}>Bebidas da estação</button>
             <a href={`${homeHref}#story`}>A nossa história</a>
             <a href={`${homeHref}#location`}>Onde estamos</a>
             <button type="button" onClick={onOpenCatering}>Eventos</button>
