@@ -1,5 +1,34 @@
 import { test, expect } from '@playwright/test';
 
+for (const width of [390, 1920]) {
+  test(`all content photos and menu categories stay on the page at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1080 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('./');
+    const initialURL = page.url();
+
+    async function openAndClose(image) {
+      await image.click({ position: { x: 10, y: 10 } });
+      const viewer = page.getByRole('dialog');
+      await expect(viewer).toBeVisible();
+      const close = viewer.getByRole('button', { name: 'Fechar imagem', exact: true });
+      await expect(close).toBeInViewport();
+      await close.click();
+      await expect(viewer).toHaveCount(0);
+      expect(page.url()).toBe(initialURL);
+      expect(page.context().pages()).toHaveLength(1);
+    }
+
+    for (const selector of ['.hero-image', '.story-main-image', '.story-inset img', '.catering-photo img']) {
+      await openAndClose(page.locator(selector));
+    }
+    for (const category of ['Café e chocolate', 'Matcha e bebidas', 'Para comer']) {
+      await page.getByRole('button', { name: category, exact: true }).click();
+      await openAndClose(page.locator('.menu-sheet img'));
+    }
+  });
+}
+
 for (const width of [320, 1366]) {
   test(`menu image can be closed without leaving the page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

@@ -38,10 +38,10 @@ export default function App() {
           <SeasonalSection onOpenImage={setPreviewImage} />
         ) : (
           <>
-            <HeroSection onMakeItRain={makeItRain} />
-            <StorySection />
+            <HeroSection onMakeItRain={makeItRain} onOpenImage={setPreviewImage} />
+            <StorySection onOpenImage={setPreviewImage} />
             <MenuSection onOpenImage={setPreviewImage} />
-            <CateringSection onOpenCatering={openCatering} />
+            <CateringSection onOpenCatering={openCatering} onOpenImage={setPreviewImage} />
             <LocationSection />
           </>
         )}

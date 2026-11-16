@@ -9,16 +9,24 @@ const stripMessages = [
   'Puxe mais uma cadeira',
 ];
 
-export default function HeroSection({ onMakeItRain }) {
+export default function HeroSection({ onMakeItRain, onOpenImage }) {
   return (
     <>
       <section className="hero" id="home" aria-labelledby="hero-heading">
-        <img
-          className="hero-image"
-          src={images.hero.src}
-          alt={images.hero.alt}
-          fetchPriority="high"
-        />
+        <button
+          type="button"
+          className="hero-image-trigger"
+          aria-label="Ampliar a fotografia principal"
+          aria-haspopup="dialog"
+          onClick={() => onOpenImage({ ...images.hero, title: 'Um café com companhia' })}
+        >
+          <img
+            className="hero-image"
+            src={images.hero.src}
+            alt={images.hero.alt}
+            fetchPriority="high"
+          />
+        </button>
         <div className="hero-shade" />
         <div className="hero-content">
           <p className="hero-intro">O café era a desculpa</p>

@@ -28,6 +28,11 @@
 }
 
 .catering-photo {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: zoom-in;
   position: relative;
   width: 100%;
   max-width: 540px;

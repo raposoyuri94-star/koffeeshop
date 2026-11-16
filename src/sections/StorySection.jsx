@@ -1,14 +1,16 @@
 import React from 'react';
 import { images } from '../data/images';
 
-export default function StorySection() {
+export default function StorySection({ onOpenImage }) {
   return (
     <section className="story" id="story" aria-labelledby="story-heading">
       <div className="story-photo">
-        <img className="story-main-image" src={images.story.src} alt={images.story.alt} loading="lazy" />
-        <div className="story-inset">
+        <button type="button" className="story-main-trigger" aria-label="Ampliar a fotografia do café" aria-haspopup="dialog" onClick={() => onOpenImage({ ...images.story, title: 'Entre um gole e outro' })}>
+          <img className="story-main-image" src={images.story.src} alt={images.story.alt} loading="lazy" />
+        </button>
+        <button type="button" className="story-inset" aria-label="Ampliar a fotografia do matcha" aria-haspopup="dialog" onClick={() => onOpenImage({ ...images.storyMoment, title: 'Uma pausa com matcha' })}>
           <img src={images.storyMoment.src} alt={images.storyMoment.alt} loading="lazy" />
-        </div>
+        </button>
         <span className="photo-caption">Entre um gole e outro</span>
       </div>
       <div className="story-copy">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { images } from '../data/images';
 
-export default function CateringSection({ onOpenCatering }) {
+export default function CateringSection({ onOpenCatering, onOpenImage }) {
   return (
     <>
       <section className="catering" id="catering" aria-labelledby="catering-heading">
@@ -14,10 +14,10 @@ export default function CateringSection({ onOpenCatering }) {
           </p>
           <button className="button button-light" onClick={onOpenCatering}>Opções para eventos</button>
         </div>
-        <div className="catering-photo">
+        <button type="button" className="catering-photo" aria-label="Ampliar a fotografia das sanduíches" aria-haspopup="dialog" onClick={() => onOpenImage({ ...images.catering, title: 'Para partilhar à mesa', width: 1284, height: 1511 })}>
           <img src={images.catering.src} alt={images.catering.alt} width="1284" height="1511" loading="lazy" />
           <span className="photo-caption">Ponho isto ao meio</span>
-        </div>
+        </button>
       </section>
       <section className="closing-note" aria-label="Mais um pouco de Kofeeshop">
         <p>Espere só<br /><span>mais uma história</span></p>
