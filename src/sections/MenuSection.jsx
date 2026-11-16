@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { images } from '../data/images';
 import { menu } from '../data/menu';
 
-export default function MenuSection() {
+export default function MenuSection({ onOpenImage }) {
   const [category, setCategory] = useState(Object.keys(menu)[0]);
   const selectedMenu = menu[category];
   const menuImage = images[selectedMenu.image];
@@ -32,12 +32,17 @@ export default function MenuSection() {
         <span className="menu-milk-note">Diga-nos como gosta do seu café.</span>
       </div>
       <figure className="menu-sheet">
-        <a
+        <button
+          type="button"
           className="menu-sheet-link"
-          href={menuImage.src}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Ampliar o menu de ${category.toLowerCase()} (abre num novo separador)`}
+          aria-haspopup="dialog"
+          aria-label={`Ampliar o menu de ${category.toLowerCase()}`}
+          onClick={() => onOpenImage({
+            ...menuImage,
+            title: category === 'Para comer' ? 'Menu para comer' : `Menu de ${category.toLowerCase()}`,
+            width: selectedMenu.width,
+            height: selectedMenu.height,
+          })}
         >
           <img
             key={category}
@@ -47,7 +52,7 @@ export default function MenuSection() {
             height={selectedMenu.height}
             loading="lazy"
           />
-        </a>
+        </button>
       </figure>
       <a className="text-link" href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>
         Ver as bebidas da estação

@@ -69,6 +69,9 @@
 
 .menu-sheet-link {
   display: block;
+  width: 100%;
+  padding: 0;
+  cursor: zoom-in;
   border: 1px solid var(--light-gray);
   background: var(--soft-gray);
 }

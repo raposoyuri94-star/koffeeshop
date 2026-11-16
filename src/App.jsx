@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import CateringDialog from './components/CateringDialog';
+import ImageViewer from './components/ImageViewer';
 import CoffeeRain from './components/CoffeeRain';
 import HeroSection from './sections/HeroSection';
 import StorySection from './sections/StorySection';
@@ -16,6 +17,7 @@ export default function App() {
   const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
   const homeHref = isSeasonalPage ? import.meta.env.BASE_URL : '';
   const [cateringOpen, setCateringOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const { batch, isRaining, makeItRain } = useCoffeeRain();
   useInitialHashScroll();
 
@@ -33,12 +35,12 @@ export default function App() {
       <SiteHeader onOpenCatering={openCatering} homeHref={homeHref} />
       <main id="main">
         {isSeasonalPage ? (
-          <SeasonalSection />
+          <SeasonalSection onOpenImage={setPreviewImage} />
         ) : (
           <>
             <HeroSection onMakeItRain={makeItRain} />
             <StorySection />
-            <MenuSection />
+            <MenuSection onOpenImage={setPreviewImage} />
             <CateringSection onOpenCatering={openCatering} />
             <LocationSection />
           </>
@@ -46,6 +48,7 @@ export default function App() {
       </main>
       <SiteFooter onOpenCatering={openCatering} homeHref={homeHref} />
       <CateringDialog open={cateringOpen} onClose={closeCatering} />
+      {previewImage && <ImageViewer image={previewImage} onClose={() => setPreviewImage(null)} />}
       <CoffeeRain visible={isRaining} batch={batch} />
     </div>
   );

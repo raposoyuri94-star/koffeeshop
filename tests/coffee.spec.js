@@ -44,7 +44,7 @@ for (const viewport of viewports) {
   });
 }
 
-test('uploaded menu pages switch categories and open from the image', async ({ page }) => {
+test('uploaded menu pages switch categories and open in a closable viewer', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-MZ');
@@ -61,12 +61,16 @@ test('uploaded menu pages switch categories and open from the image', async ({ p
     await expect(button).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.menu-sheet img')).toHaveAttribute('src', new RegExp(filename + '$'));
   }
-  const popupPromise = page.waitForEvent('popup');
-  await page.locator('.menu-sheet-link').click();
-  const fullMenu = await popupPromise;
-  await expect(fullMenu).toHaveURL(/koffee%206\.jpg$/);
-  await expect.poll(() => fullMenu.locator('img').evaluate(image => image.complete && image.naturalWidth === 1284)).toBe(true);
-  await fullMenu.close();
+  const initialURL = page.url();
+  const trigger = page.locator('.menu-sheet-link');
+  await trigger.click();
+  const viewer = page.getByRole('dialog', { name: 'Menu para comer', exact: true });
+  await expect(viewer).toBeVisible();
+  await expect.poll(() => viewer.locator('img').evaluate(image => image.complete && image.naturalWidth === 1284)).toBe(true);
+  await viewer.getByRole('button', { name: 'Fechar imagem' }).click();
+  await expect(viewer).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  expect(page.url()).toBe(initialURL);
 });
 
 test('mobile navigation closes with Escape and returns keyboard focus', async ({ page }) => {

@@ -1,18 +1,22 @@
 import React from 'react';
 import { images } from '../data/images';
 
-export default function SeasonalSection() {
+export default function SeasonalSection({ onOpenImage }) {
+  function openPoster() {
+    onOpenImage({ ...images.seasonal, title: 'Bebidas da estação', width: 1258, height: 1669 });
+  }
+
   return (
     <section className="seasonal-feature section-space" id="seasonal" aria-labelledby="seasonal-heading">
-      <a
+      <button
+        type="button"
         className="seasonal-poster"
-        href={images.seasonal.src}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Ver o cartaz de bebidas de abóbora e especiarias em tamanho original (abre num novo separador)"
+        aria-haspopup="dialog"
+        aria-label="Ampliar o cartaz de bebidas de abóbora e especiarias"
+        onClick={openPoster}
       >
         <img src={images.seasonal.src} alt={images.seasonal.alt} width="1258" height="1669" />
-      </a>
+      </button>
       <div className="seasonal-copy">
         <a className="text-link seasonal-back" href={`${import.meta.env.BASE_URL}#menu`}>Voltar ao menu</a>
         <p className="handwritten">Uma mudança no copo</p>
@@ -22,9 +26,9 @@ export default function SeasonalSection() {
           com latte, chai, matcha ou Red Bull. Todas são servidas com gelo.
         </p>
         <p className="seasonal-note">Confirme na loja quais estão disponíveis e os preços actuais.</p>
-        <a className="text-link" href={images.seasonal.src} target="_blank" rel="noreferrer">
-          Ver as quatro combinações <span className="sr-only">(abre num novo separador)</span>
-        </a>
+        <button type="button" className="text-link seasonal-preview" aria-haspopup="dialog" onClick={openPoster}>
+          Ver as quatro combinações
+        </button>
       </div>
     </section>
   );
