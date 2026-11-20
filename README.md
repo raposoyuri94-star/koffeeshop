@@ -11,7 +11,7 @@ npm run build
 npm test
 ```
 
-Open the development URL at `/koffeeshop/`. Browser tests use installed Google Chrome and launch the production preview automatically, so build before testing. The suite checks eight screen sizes, image loading, three menu pages and their full-size links, section navigation, mobile navigation, keyboard focus in the events dialog, and reduced motion. The website uses Portuguese for Mozambique (`pt-MZ`).
+Open the development URL at `/koffeeshop/`. Browser tests use installed Google Chrome and launch the production preview automatically, so build before testing. The suite checks eight screen sizes, image loading, three menu pages and their full-size links, section navigation, mobile navigation, keyboard focus in the events dialog, reduced motion, and navigation to and from the Terms and Conditions page. The website uses Portuguese for Mozambique (`pt-MZ`).
 
 ## Source structure
 
@@ -22,6 +22,7 @@ src/
   style.css            Stylesheet imports in cascade order
   components/          Header, footer, branding, dialog, and coffee animation
   sections/            Hero, story, menu, and events
+  pages/               Terms and Conditions
   data/                Images, menu pages, and event options
   hooks/               Coffee animation state and timer
   styles/              Base, shared, and section styles with their media queries
@@ -44,7 +45,19 @@ Image paths and Portuguese descriptions are centralized in `src/data/images.js`.
 | `koffee 6.jpg` | Food menu page |
 | `Koffe.jpeg` | Pumpkin spice poster beside the menu, with a full-size link |
 
-Update the alt descriptions when replacing photos. Menu page metadata lives in `src/data/menu.js`. Each category displays its original menu image and a short caption; clicking the image opens it at full size. Products and prices are shown in the supplied artwork. Event options live in `src/data/catering.js` and remain illustrative. Page copy lives with its section in `src/sections/`, and the dialog and footer copy live in their respective files in `src/components/`. Ordering and payment services are not connected. Add the real location and opening hours to `src/components/SiteFooter.jsx` when available.
+Update the alt descriptions when replacing photos. Menu page metadata lives in `src/data/menu.js`. Each category displays its original menu image and a short caption; clicking the image opens it at full size. Products and prices are shown in the supplied artwork. Event options live in `src/data/catering.js` and remain illustrative. Page copy lives with its section in `src/sections/`, and the dialog and footer copy live in their respective files in `src/components/`. Ordering and payment services are not connected. The shared address lives in `src/data/location.js`, and the Instagram contact lives in `src/data/social.js`. Opening hours have not been supplied and are not displayed.
+
+## Terms and privacy
+
+`termos-e-condicoes.html` is a separate production entry point, linked from every footer. Its Portuguese content lives in `src/pages/TermsPage.jsx`. Shared navigation returns to the correct sections of the home page, and the image and events dialogs also work from this page. No dates are displayed in the terms.
+
+The page covers the informational purpose of the site, prices in MT, seasonal availability, allergies, illustrative event options, content ownership, external services, and contacts. It describes the current implementation: no accounts, forms, first-party analytics, cookies, or browser storage; GitHub Pages hosting logs and the Google Maps iframe are disclosed separately. If data collection or service providers change, update the notice before enabling them.
+
+The content preserves applicable consumer rights and does not claim legal certification. The café should approve its terms and confirm its address, menu prices, seasonal offers, and permission to publish the supplied branding and photos before a public launch. Sources consulted for the privacy and consumer wording:
+
+- [Mozambique consumer protection law, published by INAE](https://inae.gov.mz/assets/Documentos/Legislacoes/Act.Ecocn%C3%B3mica/Transversal/Lei%20de%20defesa%20do%20consumidor.pdf).
+- [GitHub Pages data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection).
+- [Google Privacy Policy](https://policies.google.com/privacy?hl=pt).
 
 ## Design direction
 

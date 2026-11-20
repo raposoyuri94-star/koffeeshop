@@ -10,13 +10,15 @@ import MenuSection from './sections/MenuSection';
 import SeasonalSection from './sections/SeasonalSection';
 import CateringSection from './sections/CateringSection';
 import LocationSection from './sections/LocationSection';
+import TermsPage from './pages/TermsPage';
 import useCoffeeRain from './hooks/useCoffeeRain';
 import useInitialHashScroll from './hooks/useInitialHashScroll';
 import { images } from './data/images';
 
 export default function App() {
   const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
-  const homeHref = isSeasonalPage ? import.meta.env.BASE_URL : '';
+  const isTermsPage = window.location.pathname.endsWith('/termos-e-condicoes.html');
+  const homeHref = isSeasonalPage || isTermsPage ? import.meta.env.BASE_URL : '';
   const [cateringOpen, setCateringOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const { batch, isRaining, makeItRain } = useCoffeeRain();
@@ -39,7 +41,9 @@ export default function App() {
       <a className="skip-link" href="#main">Saltar para o conteúdo</a>
       <SiteHeader onOpenCatering={openCatering} onOpenSeasonalImage={openSeasonalImage} homeHref={homeHref} />
       <main id="main">
-        {isSeasonalPage ? (
+        {isTermsPage ? (
+          <TermsPage />
+        ) : isSeasonalPage ? (
           <SeasonalSection onOpenImage={setPreviewImage} />
         ) : (
           <>

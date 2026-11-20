@@ -44,7 +44,13 @@ export default function SiteFooter({ onOpenCatering, onOpenSeasonalImage, homeHr
       </div>
       <div className="footer-bottom">
         <small>Kofeeshop {new Date().getFullYear()}</small>
-        <small className="footer-credit">Made by <strong>Nexzoagency</strong></small>
+        <a className="footer-terms" href={`${import.meta.env.BASE_URL}termos-e-condicoes.html`}>Termos e Condições</a>
+        <small className="footer-credit">
+          Made by{' '}
+          <a href="https://raposoyuri94-star.github.io/nexzo-agency-website/" target="_blank" rel="noopener noreferrer">
+            <strong>Nexzo_agency</strong>
+          </a>
+        </small>
       </div>
     </footer>
   );
