@@ -25,13 +25,14 @@ export default function MenuSection({ onOpenImage }) {
 
   function addItem(group, item, price, option) {
     const id = JSON.stringify([group.category, group.name, item.name, option]);
+    const size = item.prices.length > 1 ? ['M', 'L'][option] : '';
     setSelection(current => {
       const existing = current.find(line => line.id === id);
       return existing
         ? current.map(line => line.id === id ? { ...line, quantity: line.quantity + 1 } : line)
-        : [...current, { id, name: item.name, group: group.name, price, quantity: 1 }];
+        : [...current, { id, name: item.name, size, group: group.name, price, quantity: 1 }];
     });
-    setAnnouncement(`${item.name}, ${money(price)}, adicionado à seleção.`);
+    setAnnouncement(`${item.name}${size ? ` ${size}` : ''}, ${money(price)}, adicionado à seleção.`);
   }
 
   function changeQuantity(id, delta) {
@@ -68,13 +69,13 @@ export default function MenuSection({ onOpenImage }) {
               {selection.map(line => (
                 <li className="selection-line" key={line.id}>
                   <div className="menu-item-copy">
-                    <h4>{line.name}</h4>
+                    <h4>{line.name}{line.size && ` · ${line.size}`}</h4>
                     <p>{line.group} · {money(line.price)} cada</p>
                   </div>
-                  <div className="menu-quantity" role="group" aria-label={`${line.group}: ${line.name}, ${money(line.price)}`}>
-                    <button type="button" aria-label={`Diminuir ${line.name}`} onClick={() => changeQuantity(line.id, -1)}>−</button>
+                  <div className="menu-quantity" role="group" aria-label={`${line.group}: ${line.name}${line.size ? ` ${line.size}` : ''}, ${money(line.price)}`}>
+                    <button type="button" aria-label={`Diminuir ${line.name}${line.size ? ` ${line.size}` : ''}`} onClick={() => changeQuantity(line.id, -1)}>−</button>
                     <span aria-label={`${line.quantity} unidades`}>{line.quantity}</span>
-                    <button type="button" aria-label={`Aumentar ${line.name}`} onClick={() => changeQuantity(line.id, 1)}>+</button>
+                    <button type="button" aria-label={`Aumentar ${line.name}${line.size ? ` ${line.size}` : ''}`} onClick={() => changeQuantity(line.id, 1)}>+</button>
                   </div>
                   <strong className="selection-line-total">{money(line.price * line.quantity)}</strong>
                 </li>
@@ -113,13 +114,19 @@ export default function MenuSection({ onOpenImage }) {
                     <h4>{item.name}</h4>
                     {item.description && <p>{item.description}</p>}
                   </div>
-                  <span className="menu-item-price">{item.prices.join(' / ')} <span>MT</span></span>
+                  <span className="menu-item-price">
+                    {item.prices.map((price, option) => (
+                      <span className="menu-price-option" key={option}>
+                        {item.prices.length > 1 && `${['M', 'L'][option]} `}{price} <span className="menu-currency">MT</span>
+                      </span>
+                    ))}
+                  </span>
                   <div className="menu-item-actions">
                     {item.prices.map((price, option) => (
                       <button type="button" key={option}
-                        aria-label={`Adicionar ${item.name}, ${price} MT`}
+                        aria-label={`Adicionar ${item.name}${item.prices.length > 1 ? ` ${['M', 'L'][option]}` : ''}, ${price} MT`}
                         onClick={() => addItem(group, item, price, option)}>
-                        {item.prices.length > 1 ? `Selecionar · ${money(price)}` : 'Selecionar'}
+                        {item.prices.length > 1 ? `${['M', 'L'][option]} · ${money(price)}` : 'Selecionar'}
                       </button>
                     ))}
                   </div>

@@ -152,7 +152,12 @@
   white-space: nowrap;
 }
 
-.menu-item-price > span {
+.menu-price-option {
+  display: block;
+  text-align: right;
+}
+
+.menu-item-price .menu-currency {
   font-size: 12px;
   font-weight: 400;
 }
