@@ -58,6 +58,8 @@ export default function SiteHeader({ onOpenCatering, onOpenSeasonalImage, homeHr
         aria-label="Navegação principal"
       >
         <a href={`${homeHref}#story`} onClick={closeMenu}>A nossa história</a>
+        <a href={`${import.meta.env.BASE_URL}galeria.html`} onClick={closeMenu}
+          aria-current={window.location.pathname.endsWith('/galeria.html') ? 'page' : undefined}>Galeria</a>
         <button type="button" className="mobile-navigation-link" aria-haspopup="dialog" onClick={openSeasonalImage}>
           Bebidas da estação
         </button>

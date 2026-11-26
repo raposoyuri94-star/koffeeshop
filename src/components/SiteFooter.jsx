@@ -20,6 +20,7 @@ export default function SiteFooter({ onOpenCatering, onOpenSeasonalImage, homeHr
             <a href={`${homeHref}#menu`}>O nosso menu</a>
             <button type="button" aria-haspopup="dialog" onClick={onOpenSeasonalImage}>Bebidas da estação</button>
             <a href={`${homeHref}#story`}>A nossa história</a>
+            <a href={`${import.meta.env.BASE_URL}galeria.html`}>Galeria</a>
             <a href={`${homeHref}#location`}>Onde estamos</a>
             <button type="button" onClick={onOpenCatering}>Eventos</button>
             <a href={homeHref ? '#main' : '#home'}>Voltar ao topo</a>
