@@ -1,0 +1,407 @@
+.hero {
+  position: relative;
+  min-height: 700px;
+  height: calc(100svh - 94px);
+  max-height: 900px;
+  isolation: isolate;
+  color: var(--white);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.hero-image, .hero-video, .hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-image {
+  object-position: center top;
+}
+
+.hero-video {
+  left: auto;
+  width: 48%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.hero-with-video .hero-image {
+  opacity: 0;
+}
+
+.hero-with-video .hero-shade {
+  background: linear-gradient(90deg,#000 0%,#000 43%,#000000d9 52%,#0000001a 67%,#00000026),linear-gradient(0deg,#00000066,transparent 35%);
+}
+
+.hero-shade {
+  background: linear-gradient(90deg,#000000a6,#00000038 65%,#0000001f), linear-gradient(0deg,#00000059,transparent 30%);
+}
+
+.hero-content {
+  position: relative;
+  padding: 65px 7% 100px;
+  width: 80%;
+  max-width: 1100px;
+}
+
+.hero-intro {
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: clamp(80px,8.9vw,138px);
+  line-height: .95;
+  letter-spacing: -.058em;
+}
+
+.hero-description {
+  font-size: 16px;
+  margin: 25px 0;
+}
+
+.hero-content > .button {
+  min-height: 54px;
+}
+
+.coffee-sticker {
+  position: absolute;
+  right: 7%;
+  bottom: 102px;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  background: var(--soft-gray);
+  color: var(--ink);
+  transform: rotate(11deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 7px var(--soft-gray),0 0 0 9px #00000040;
+  border: 1px dashed var(--ink);
+  padding: 10px;
+  transition: transform .25s;
+}
+
+.coffee-sticker:hover {
+  transform: rotate(-7deg);
+}
+
+.coffee-sticker .coffee-doodle {
+  width: 80px;
+  height: 87px;
+}
+
+.sticker-top, .sticker-bottom {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.1;
+  letter-spacing: -.5px;
+}
+
+.sticker-hint {
+  font-size: 9px;
+  margin-top: 6px;
+}
+
+.good-things-strip {
+  background: var(--gray);
+  overflow: hidden;
+  padding: 24px 0;
+}
+
+.good-things-strip > div {
+  display: flex;
+  align-items: center;
+  gap: 65px;
+  width: max-content;
+  margin-left: -40px;
+}
+
+.good-things-strip span {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+@keyframes hero-intro {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-content {
+    animation: hero-intro .8s ease-out both;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    min-height: 650px;
+  }
+  .hero-content {
+    padding-top: 70px;
+  }
+  .hero h1 {
+    font-size: clamp(74px,9.4vw,110px);
+  }
+  .coffee-sticker {
+    width: 148px;
+    height: 148px;
+    right: 6%;
+  }
+  .coffee-sticker .coffee-doodle {
+    width: 65px;
+    height: 70px;
+  }
+  .sticker-top, .sticker-bottom {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    height: auto;
+    min-height: 710px;
+  }
+  .hero-content {
+    padding-top: 65px;
+    width: 100%;
+  }
+  .hero-video {
+    width: 100%;
+  }
+  .hero-with-video .hero-shade {
+    background: linear-gradient(90deg,#000000b3,#00000040),linear-gradient(0deg,#00000066,transparent 50%);
+  }
+  .hero h1 {
+    font-size: clamp(82px,11vw,105px);
+  }
+  .coffee-sticker {
+    bottom: 90px;
+    width: 140px;
+    height: 140px;
+  }
+  .hero-description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero {
+    min-height: 750px;
+    max-height: none;
+  }
+  .hero-image {
+    object-position: 53% top;
+  }
+  .hero-video {
+    object-position: center;
+  }
+  .hero-shade {
+    background: linear-gradient(90deg,#000000b3,#00000040),linear-gradient(0deg,#00000066,transparent 50%);
+  }
+  .hero-content {
+    padding: clamp(230px, 37svh, 330px) 6% 235px;
+    width: 100%;
+  }
+  .hero-intro {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(62px,13.9vw,89px);
+    letter-spacing: -.065em;
+  }
+  .hero-description {
+    font-size: 14px;
+    margin: 22px 0;
+    max-width: 34ch;
+  }
+  .hero-content > .button {
+    min-height: 50px;
+    font-size: 13px;
+    padding: 13px 20px;
+  }
+  .coffee-sticker {
+    right: 10%;
+    bottom: 76px;
+    width: 126px;
+    height: 126px;
+    box-shadow: 0 0 0 5px var(--soft-gray),0 0 0 7px #00000040;
+  }
+  .coffee-sticker .coffee-doodle {
+    width: 59px;
+    height: 64px;
+  }
+  .sticker-top, .sticker-bottom {
+    font-size: 14px;
+  }
+  .sticker-hint {
+    font-size: 8px;
+    margin-top: 3px;
+  }
+  .good-things-strip {
+    padding: 20px 0;
+  }
+  .good-things-strip > div {
+    gap: 26px;
+    margin-left: -25px;
+  }
+  .good-things-strip span {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    min-height: 710px;
+  }
+  .hero h1 {
+    font-size: 60px;
+  }
+  .hero-content {
+    padding-bottom: 220px;
+  }
+}
+
+/* Keep copy and moving footage in separate areas. */
+.hero-with-video {
+  display: grid;
+  grid-template-columns: 52% 48%;
+  height: auto;
+}
+
+.hero-with-video .hero-video {
+  position: relative;
+  inset: auto;
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 650px;
+  z-index: 0;
+}
+
+.hero-with-video .hero-content {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  padding: 65px 13% 100px;
+  align-self: center;
+}
+
+.hero-with-video .hero-shade {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-with-video {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    max-height: none;
+  }
+
+  .hero-with-video .hero-video {
+    grid-column: 1;
+    grid-row: 1;
+    height: clamp(300px, 55svh, 520px);
+    min-height: 0;
+  }
+
+  .hero-with-video .hero-content {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 36px 6% 48px;
+  }
+
+  .hero-with-video .coffee-sticker {
+    top: 20px;
+    right: 24px;
+    bottom: auto;
+    width: 100px;
+    height: 100px;
+  }
+
+  .hero-with-video .coffee-sticker .coffee-doodle {
+    width: 42px;
+    height: 46px;
+  }
+
+  .hero-with-video .sticker-top,
+  .hero-with-video .sticker-bottom {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-with-video {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 460px;
+  }
+
+  .hero-with-video .hero-video {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+    min-height: 460px;
+  }
+
+  .hero-with-video .hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 40px 10%;
+  }
+
+  .hero-with-video .hero-intro {
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+
+  .hero-with-video h1 {
+    font-size: clamp(32px, 6.4vw, 64px);
+    letter-spacing: -.055em;
+  }
+
+  .hero-with-video .hero-description {
+    font-size: clamp(12px, 1.8vw, 15px);
+    margin: 20px 0;
+  }
+
+  .hero-with-video .hero-description br {
+    display: none;
+  }
+
+  .hero-with-video .hero-content > .button {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 12px;
+    min-height: 48px;
+  }
+
+  .hero-with-video .coffee-sticker {
+    top: auto;
+    bottom: 22px;
+    right: 18px;
+    width: 82px;
+    height: 82px;
+    padding: 6px;
+  }
+
+  .hero-with-video .sticker-hint {
+    display: none;
+  }
+}
