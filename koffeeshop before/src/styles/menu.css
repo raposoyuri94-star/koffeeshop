@@ -96,8 +96,8 @@
 }
 
 .menu-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   gap: 16px;
   padding: 18px 0;
@@ -135,6 +135,117 @@
 .menu-item-price > span {
   font-size: 12px;
   font-weight: 400;
+}
+
+.menu-item-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-item-actions button, .menu-clear {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 24px;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.menu-item-actions button:hover, .menu-clear:hover {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.menu-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.menu-selection {
+  margin-top: 24px;
+  background: var(--soft-gray);
+  border: 1px solid var(--ink);
+}
+
+.menu-selection summary {
+  padding: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.menu-selection summary strong {
+  display: inline-block;
+  margin-left: 16px;
+}
+
+.menu-selection summary:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.menu-selection-content {
+  padding: 0 20px 20px;
+}
+
+.menu-selection-content > p {
+  font-size: 14px;
+}
+
+.selection-line {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 18px 0;
+  border-bottom: 1px solid #00000030;
+}
+
+.selection-line .menu-item-copy {
+  flex: 1 1 200px;
+}
+
+.selection-line h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.selection-line p {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.menu-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-quantity button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ink);
+  background: var(--white);
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.menu-quantity span {
+  min-width: 24px;
+  text-align: center;
+}
+
+.selection-line-total {
+  white-space: nowrap;
+}
+
+.menu-clear {
+  margin-top: 20px;
 }
 
 @media (min-width: 1700px) {

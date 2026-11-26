@@ -136,7 +136,7 @@ test('coffee sticker responds and respects reduced motion', async ({ page }) => 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   await page.getByRole('button', { name: 'Fazer chover grãos de café' }).click();
-  await expect(page.getByRole('status')).toHaveText('Uma chuva de grãos de café.');
+  await expect(page.getByRole('status').filter({ hasText: 'Uma chuva de grãos de café.' })).toHaveText('Uma chuva de grãos de café.');
   await expect(page.locator('.falling-bean')).toHaveCount(18);
   expect(await page.locator('.falling-bean').first().evaluate(element => getComputedStyle(element).animationName)).toBe('none');
   await expect(page.locator('.bean-rain')).toHaveCount(0, { timeout: 5000 });
