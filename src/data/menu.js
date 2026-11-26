@@ -1,20 +1,158 @@
+// Transcribed from the three supplied menu images. Paired prices retain their original order.
+const item = (name, price, description = '', image = null) => ({ name, prices: [].concat(price), description, image });
+const group = (name, items, note = '') => ({ name, items, note });
+
 export const menu = {
-  "Café e chocolate": {
-    "image": "menuCoffee",
-    "width": 1284,
-    "height": 902,
-    "caption": "Expresso, chocolate e cafés com gelo."
-  },
-  "Matcha e bebidas": {
-    "image": "menuDrinks",
-    "width": 1284,
-    "height": 892,
-    "caption": "Matcha, chás gelados, bebidas e extras."
-  },
-  "Para comer": {
-    "image": "menuFood",
-    "width": 1284,
-    "height": 899,
-    "caption": "Petiscos, tostas, sanduíches e pequeno-almoço."
-  }
+  'Café e chocolate': [
+    group('Espresso & chá', [
+      item('Single espresso', 100), item('Double espresso (doppio)', 120),
+      item('Macchiato', 120, 'Single espresso + espuma de leite'),
+      item('Café bon bon', 150, 'Single espresso + leite condensado'),
+      item('Café con panna', 150, 'Single espresso + chantilly'),
+      item('Chá simples', 80), item('Chá com leite', 80),
+    ]),
+    group('Hot coffee', [
+      item('Cappuccino', [250, 300], 'Single espresso + leite quente + microespuma'),
+      item('Nutella cappuccino', [350, 400], 'Single espresso + Nutella + leite quente + microespuma'),
+      item('Americano', [200, 250], 'Single espresso + água quente'),
+      item('Mochaccino', [300, 350], 'Single espresso + dark chocolate + leite quente + microespuma'),
+      item('Caramel Macchiato', [350, 400], 'Vanilla + espresso + leite quente + microespuma + molho caramelo'),
+      item('White Choc. Mocha', [300, 350], 'White chocolate + espresso + leite quente + microespuma'),
+      item('Cinnabon Café', [350, 400], 'Leite condensado + canela + vanilla + espresso + leite quente'),
+    ]),
+    group('Hot chocolate', [
+      item('Hot chocolate', [250, 300], 'Chocolate powder + dark chocolate + leite quente'),
+      item('Nutella H. Chocolate', [350, 400], 'Chocolate powder + Nutella + leite quente'),
+      item('Cookie H. Chocolate', [300, 350], 'Cookie n’ cream + sugar syrup + leite quente + chantilly + Oreo crumbs'),
+      item('Salted H. Chocolate', [300, 350], 'Chocolate powder + dark chocolate + salted caramel syrup + leite quente'),
+      item('Hazelnut H. Chocolate', [300, 350], 'Chocolate powder + dark chocolate + hazelnut syrup + leite quente'),
+    ]),
+    group('Frappuccino', [
+      item('Ferrero Rocher Frappuccino', [450, 500], 'Café + leite + sugar syrup + Ferrero + Nutella + gelo + chantilly + molho chocolate'),
+      item('KitKat Frappuccino', [400, 450], 'Café + leite + sugar syrup + KitKat + gelo + chantilly + molho chocolate'),
+      item('Coffee Frappuccino', [300, 350], 'Café + leite + sugar syrup + gelo + chantilly + molho chocolate'),
+      item('Caramel Frappuccino', [350, 400], 'Café + leite + caramel syrup + gelo + chantilly + molho caramelo'),
+      item('Strawberry Frappuccino', [400, 450], 'Cappuccino powder + leite + strawberry + gelo + strawberry chantilly'),
+      item('Blueberry Frappuccino', [450, 500], 'Blueberry syrup + café + leite + ice cream + gelo + chantilly + blueberry'),
+    ]),
+    group('Iced cappuccino', [
+      item('Iced cappuccino', [250, 300], 'Cappuccino powder + leite + gelo + espuma de leite'),
+      item('Iced Vanilla', [300, 350], 'Cappuccino powder + leite + vanilla syrup + gelo'),
+      item('Iced Caramel', [330, 380], 'Cappuccino powder + leite + caramel syrup + gelo + molho caramelo'),
+      item('Iced Salted caramel', [330, 380], 'Cappuccino powder + leite + salted caramel syrup + gelo + molho caramelo'),
+      item('Iced Hazelnut', [300, 350], 'Cappuccino powder + leite + hazelnut syrup + gelo'),
+    ]),
+    group('Iced coffee', [
+      item('Iced coffee plain', [200, 250], 'Café + sugar syrup + leite + gelo'),
+      item('Nutella', [350, 400], 'Café + sugar syrup + Nutella + leite + gelo'),
+      item('Biscoff lotus', [350, 400], 'Café + sugar syrup + lotus + leite + gelo'),
+      item('Oreo Cookie', [250, 300], 'Café + sugar syrup + Oreo cookie crumbs + leite + gelo'),
+      item('Chocolate Mocha', [300, 350], 'Café + sugar syrup + molho de chocolate + leite + gelo'),
+      item('White chocolate mocha', [300, 350], 'Café + white chocolate syrup + molho white chocolate + leite + gelo'),
+      item('Dalgona Coffee', [250, 300], 'Café cremoso batido + sugar syrup + leite + gelo'),
+      item('Spanish Coffee', [250, 300], 'Café + leite condensado + leite + gelo'),
+      item('Caramel Macchiato', [350, 400], 'Vanilla syrup + café + leite + gelo + espuma de leite + molho caramelo'),
+      item('Pistachio White Mocha', [350, 400], 'Pistachio white chocolate powder + café + leite + gelo'),
+      item('Dubai Chocolate', [400, 450], 'Pistachio white chocolate powder + café + Nutella + leite + gelo'),
+      item('Tiramisu Coffee', [450, 500], 'Tiramisu powder + café + leite + vanilla sweet cream + cocoa powder + sponge biscuit'),
+      item('Lavanda Coffee', [350, 400], 'Lavanda white chocolate powder + café + leite + gelo'),
+      item('Blueberry Cheesecake', [450, 500], 'Blueberry syrup + café + leite + blueberry cheesecake cream + gelo'),
+      item('Nutella Bomb', [450, 500], 'Double Nutella + café + leite + molho de chocolate + chantilly + molho de chocolate'),
+      item('Lotus Creamy & Crunchy (c/c)', [450, 500], 'Lotus cream + café + sugar syrup + vanilla syrup + leite + gelo + vanilla sweet cream + molho caramelo'),
+    ]),
+  ],
+  'Matcha e bebidas': [
+    group('Iced matcha', [
+      item('Iced Matcha latte', 300, 'Matcha powder + leite + gelo'),
+      item('Creamy Vanilla Matcha', 400, 'Matcha powder + vanilla syrup + leite + vanilla sweet cream + gelo'),
+      item('Strawberry Matcha', 350, 'Matcha powder + strawberry purée + leite + gelo'),
+      item('Peach Matcha', 350, 'Matcha powder + peach purée + leite + gelo'),
+      item('Mango Matcha', 350, 'Matcha powder + mango purée + leite + gelo'),
+      item('Blueberry Matcha', 350, 'Matcha powder + blueberry syrup + leite + gelo'),
+      item('Biscoff Lotus Matcha', 350, 'Matcha powder + biscoff lotus + leite + gelo + sugar syrup + lotus cookie crumbs'),
+      item('Lavanda Matcha', 350, 'Matcha powder + lavanda white chocolate powder + leite + gelo + sugar syrup'),
+      item('Caramel Matcha', 400, 'Matcha powder + caramel syrup + vanilla ice cream + molho caramelo + leite + gelo'),
+      item('White chocolate Matcha', 350, 'Matcha powder + molho white chocolate + leite + gelo'),
+    ]),
+    group('Iced tea', [
+      item('Lemon iced tea', [250, 300], 'Lemon tea concentrate + água + limão + gelo'),
+      item('Peach iced tea', [250, 300], 'Peach tea concentrate + água + limão + gelo'),
+      item('Berry iced tea', [250, 300], 'Berry tea concentrate + água + limão + gelo'),
+      item('Mango iced tea', [250, 300], 'Lemon tea concentrate + mango purée + água + limão + gelo'),
+    ]),
+    group('Kids menu', [
+      item('Cookie n’ Cream', 300, 'Cookie n’ cream powder + sugar syrup + leite + gelo + chantilly + molho chocolate'),
+      item('Oreo cookie frapp', 350, 'Oreo cookie crumbs + sugar syrup + leite + gelo + chantilly + molho chocolate'),
+      item('Caramel frapp', 350, 'Caramel syrup + leite + gelo + chantilly + molho de caramelo'),
+      item('Nutella frapp', 400, 'Nutella + leite + gelo + chantilly + molho chocolate'),
+      item('Blueberry Vanilla Frapp', 450, 'Blueberry syrup + leite + gelo + vanilla ice cream + chantilly + molho blueberry'),
+    ]),
+    group('Mocktails energéticos', [
+      item('Mango Redbull', 250, 'Redbull + mango purée + gelo + limão'),
+      item('Peach Redbull', 250, 'Redbull + peach purée + gelo + limão'),
+      item('Blueberry Mojito Redbull', 250, 'Redbull + blueberry syrup + vanilla syrup + gelo + limão + blueberry'),
+      item('Strawberry Mojito Redbull', 250, 'Redbull + strawberry syrup + vanilla syrup + gelo + limão + morangos'),
+    ]),
+    group('Affogato', [
+      item('Affogato simples', 300, 'Single espresso + 2 bolas de sorvete'),
+      item('Affogato de Nutella', 400, 'Single espresso + 2 bolas de sorvete + Nutella'),
+      item('Affogato de Biscoff Lotus', 400, 'Single espresso + 2 bolas de sorvete + Biscoff lotus + lotus cookie crumbs'),
+      item('Affogato de Oreo Cookie', 350, 'Single espresso + 2 bolas de sorvete + Oreo cookie crumbs'),
+    ]),
+    group('Bebidas', [
+      item('Água AquaPlus 600ML', 50), item('Água das Pedras', 120),
+      item('Refresco lata', 80), item('Redbull', 120), item('Sumo Compal 500ML', 80),
+    ]),
+    group('Extras', [
+      item('Nutella', 80), item('Biscoff Lotus', 80), item('Biscoff Lotus Crumbs', 30),
+      item('Oreo cookie crumbs', 30), item('Ferrero Rocher', 70), item('KitKat 2 fingers', 50),
+      item('Molho de Chocolate', 30), item('Molho de Caramelo', 30),
+      item('Molho de Strawberry, Mango, Blueberry, Peach', 30), item('Leite condensado', 30),
+      item('Leites veganos e sem lactose', 50), item('Chantilly (Whipped Cream)', 70),
+      item('Vanilla Sweet Cream', 70), item('Vanilla Ice Cream', 70), item('Matcha', 100),
+      item('Extra shot de espresso', 50), item('Espresso descafeinado', 30),
+      item('Dose de xarope', 20, 'Vanilla, caramelo, salted caramel, hazelnut, white chocolate'),
+    ]),
+  ],
+  'Para comer': [
+    group('Petiscos', [
+      item('Chamussas de frango', 200, '3 chamussas panadas de frango e queijo pouco picante'),
+      item('Springrolls de frango', 200, '3 springroll de frango pouco picante, acompanhado de molho agridoce'),
+      item('Rissóis de camarão', 200, '3 rissóis de camarão'),
+    ]),
+    group('Asinhas & tiras de frango', [
+      item('Hot wings', 450, '6 hot wings panados e fritos, acompanhados com dose de batata'),
+      item('Cheesy Strips', 450, '5 tiras de frango com queijo frito e acompanhados com dose de batata'),
+    ]),
+    group('Tostas', [
+      item('Triple cheese', 250, 'Tosta de 3 queijos (duplo cheddar e mozarela)'),
+      item('Queijo e Fiambre', 300, 'Tosta mista de queijo (cheddar) e fiambre'),
+      item('Tuna Melt', 350, 'Tosta de atum, molho da casa, cebolinha, cebola e queijo'),
+      item('Chicken Mayo', 350, 'Tosta de frango, maionese, cebola, cebolinha, coentro e queijo'),
+      item('Torradas', 150, '3 torradas acompanhado de manteiga e geleia de morango'),
+      item('Dose de batata', 100, 'Batatas fritas'),
+    ]),
+    group('Croissant brioche', [
+      item('Cheese croissant', 250, 'Croissant brioche com duplo queijo cheddar branco'),
+      item('Fiambre & Queijo', 300, 'Croissant brioche com queijo cheddar e fiambre de vaca'),
+    ], 'Prensado / normal'),
+    group('Sandes', [
+      item('Chicken mayo', 400, 'Pão de forma, alface, tomate, chicken mayo'),
+      item('Egg & Veggie', 300, 'Pão de forma, alface, ovo cremoso, cenoura, repolho roxo e tomate'),
+      item('Tuna avo', 450, 'Pão de forma, rúcula, tomate, abacate, atum e molho da casa', { src: 'tuna-avo.png', width: 1139, height: 1381 }),
+      item('Crispy chicken', 450, 'Pão de forma, tiras de frango panado, alface, tomate, cebola caramelizada e repolho roxo', { src: 'crispy-chicken.png', width: 1110, height: 1417 }),
+      item('Pastrami & Smoked beef', 550, 'Pão de forma, rúcula, tomate, duplo beef pastrami & duplo smoked beef e cebola caramelizada, molho especial e pickles'),
+    ]),
+    group('Pequeno-almoço', [
+      item('English Breakfast', 700, 'Ovo mexido ou estrelado, torradas, feijão doce, salsicha, batata e tomate'),
+      item('Traditional Breakfast', 600, 'Ovo mexido ou estrelado, torradas, salsicha e batata frita'),
+      item('Omelete Recheada', 600, 'Omelete de 3 ovos recheada com tomate, cebola, pimentão e queijo cheddar branco, acompanhado de torrada, abacate e tomate'),
+    ], '07:30h – 11:00h'),
+    group('Extras', [
+      item('Abacate', 50), item('1 torrada', 20), item('Tomate', 20),
+      item('Cebola caramelizada', 50), item('Queijo', 40), item('Atum', 50),
+      item('Molho especial', 40), item('Beef Pastrami', 100), item('Smoked beef', 50),
+      item('Ovo', 20), item('Salsicha', 30), item('Coentro/Cebolinha', 10), item('Cebola', 15),
+    ]),
+  ],
 };
