@@ -30,6 +30,7 @@ export default function SiteFooter({ onOpenCatering, onOpenSeasonalImage, homeHr
           <h2 className="footer-heading">Visite-nos</h2>
           <address>
             <a href={location.mapsUrl} target="_blank" rel="noopener noreferrer">
+              {location.name}<br />
               {location.street}<br />{location.city}
             </a>
           </address>

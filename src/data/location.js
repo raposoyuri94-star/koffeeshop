@@ -1,8 +1,10 @@
-const street = 'Av. Josina Machel, n.º 1015';
-const city = 'Maputo, Moçambique';
-const query = encodeURIComponent(`${street}, ${city}`);
+const name = 'Koffee Shop. El';
+const street = 'n1015, Av. Josina Machel';
+const city = 'Maputo, Mozambique';
+const query = encodeURIComponent(`${name}, ${street}, ${city}`);
 
 export const location = {
+  name,
   street,
   city,
   mapsUrl: `https://www.google.com/maps/search/?api=1&query=${query}`,

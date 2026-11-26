@@ -8,6 +8,7 @@ export default function LocationSection() {
         <p className="handwritten">Estamos por aqui</p>
         <h2 id="location-heading">O próximo café<br />é em Maputo</h2>
         <address>
+          {location.name}<br />
           {location.street}<br />
           {location.city}
         </address>
@@ -17,7 +18,7 @@ export default function LocationSection() {
       </div>
       <iframe
         className="location-map"
-        title="Localização da Kofeeshop na Av. Josina Machel, Maputo"
+        title={`Localização de ${location.name}, ${location.street}, ${location.city}`}
         src={location.embedUrl}
         width="640"
         height="420"
