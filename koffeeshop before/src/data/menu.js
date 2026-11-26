@@ -1,5 +1,5 @@
 // Transcribed from the three supplied menu images. Paired prices retain their original order.
-const item = (name, price, description = '') => ({ name, prices: [].concat(price), description });
+const item = (name, price, description = '', image = null) => ({ name, prices: [].concat(price), description, image });
 const group = (name, items, note = '') => ({ name, items, note });
 
 export const menu = {
@@ -139,8 +139,8 @@ export const menu = {
     group('Sandes', [
       item('Chicken mayo', 400, 'Pão de forma, alface, tomate, chicken mayo'),
       item('Egg & Veggie', 300, 'Pão de forma, alface, ovo cremoso, cenoura, repolho roxo e tomate'),
-      item('Tuna Melt', 450, 'Pão de forma, rúcula, tomate, abacate, atum e molho da casa'),
-      item('Crispy chicken', 450, 'Pão de forma, tiras de frango panado, alface, tomate, cebola caramelizada e repolho roxo'),
+      item('Tuna avo', 450, 'Pão de forma, rúcula, tomate, abacate, atum e molho da casa', { src: 'tuna-avo.png', width: 1139, height: 1381 }),
+      item('Crispy chicken', 450, 'Pão de forma, tiras de frango panado, alface, tomate, cebola caramelizada e repolho roxo', { src: 'crispy-chicken.png', width: 1110, height: 1417 }),
       item('Pastrami & Smoked beef', 550, 'Pão de forma, rúcula, tomate, duplo beef pastrami & duplo smoked beef e cebola caramelizada, molho especial e pickles'),
     ]),
     group('Pequeno-almoço', [

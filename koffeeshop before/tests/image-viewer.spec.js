@@ -1,6 +1,32 @@
 import { test, expect } from '@playwright/test';
 
 for (const width of [320, 1366]) {
+  test(`menu photos show fully and enlarge on click at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('./');
+    await page.getByRole('button', { name: 'Para comer', exact: true }).click();
+    for (const name of ['Tuna avo', 'Crispy chicken']) {
+      const trigger = page.getByRole('button', { name: `Ampliar foto de ${name}`, exact: true });
+      await trigger.scrollIntoViewIfNeeded();
+      const thumbnail = trigger.locator('img');
+      await expect.poll(() => thumbnail.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+      const size = await thumbnail.evaluate(image => ({
+        width: image.clientWidth, height: image.clientHeight,
+        ratio: image.naturalWidth / image.naturalHeight,
+      }));
+      expect(size.width).toBeLessThanOrEqual(200);
+      expect(size.width / size.height).toBeCloseTo(size.ratio, 2);
+      await trigger.click();
+      const viewer = page.getByRole('dialog', { name, exact: true });
+      await expect(viewer).toBeVisible();
+      await expect.poll(() => viewer.locator('img').evaluate(image => image.clientWidth)).toBeGreaterThan(size.width);
+      await page.keyboard.press('Escape');
+      await expect(viewer).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+    }
+  });
+
   test(`seasonal image can be closed without leaving the page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });

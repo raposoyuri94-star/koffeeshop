@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { menu } from '../data/menu';
 
-export default function MenuSection() {
+export default function MenuSection({ onOpenImage }) {
   const [category, setCategory] = useState(Object.keys(menu)[0]);
   const [selection, setSelection] = useState([]);
   const [announcement, setAnnouncement] = useState('');
@@ -86,6 +86,21 @@ export default function MenuSection() {
             <ul className="menu-items">
               {group.items.map(item => (
                 <li className="menu-item" key={item.name}>
+                  {item.image && (
+                    <button className="menu-photo-button" type="button"
+                      aria-label={`Ampliar foto de ${item.name}`} aria-haspopup="dialog"
+                      onClick={() => onOpenImage({
+                        ...item.image,
+                        src: `${import.meta.env.BASE_URL}images/${item.image.src}`,
+                        alt: `Sandes ${item.name}`,
+                        title: item.name,
+                      })}>
+                      <img className="menu-item-photo"
+                        src={`${import.meta.env.BASE_URL}images/${item.image.src}`}
+                        alt={`Sandes ${item.name}`}
+                        width={item.image.width} height={item.image.height} loading="lazy" />
+                    </button>
+                  )}
                   <div className="menu-item-copy">
                     <h4>{item.name}</h4>
                     {item.description && <p>{item.description}</p>}

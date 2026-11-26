@@ -44,7 +44,7 @@ for (const viewport of viewports) {
   });
 }
 
-test('menu categories show readable items and prices without images', async ({ page }) => {
+test('menu categories show readable items and prices with sandwich photos', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   for (const [category, section, name, price] of [
@@ -59,7 +59,7 @@ test('menu categories show readable items and prices without images', async ({ p
     const group = region.getByRole('region', { name: section, exact: true });
     const row = group.getByRole('listitem').filter({ has: page.getByRole('heading', { name, exact: true }) });
     await expect(row).toContainText(price);
-    await expect(region.locator('img')).toHaveCount(0);
+    await expect(region.locator('img')).toHaveCount(category === 'Para comer' ? 2 : 0);
   }
   await expect(page.getByText('07:30h – 11:00h', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Café e chocolate', exact: true }).click();

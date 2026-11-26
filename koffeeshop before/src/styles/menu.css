@@ -110,6 +110,21 @@
   overflow-wrap: anywhere;
 }
 
+.menu-photo-button {
+  grid-column: 1 / -1;
+  width: min(100%, 200px);
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.menu-item-photo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .menu-item h4 {
   font-family: inherit;
   font-size: 16px;

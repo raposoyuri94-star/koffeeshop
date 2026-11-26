@@ -52,7 +52,7 @@ export default function App() {
           <>
             <HeroSection onMakeItRain={makeItRain} />
             <StorySection />
-            <MenuSection />
+            <MenuSection onOpenImage={setPreviewImage} />
             <CateringSection onOpenCatering={openCatering} />
             <LocationSection />
           </>
