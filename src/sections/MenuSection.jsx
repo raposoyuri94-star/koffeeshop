@@ -39,6 +39,22 @@ export default function MenuSection({ onOpenImage }) {
   const [selection, setSelection] = useState(restoreSelection);
   const [announcement, setAnnouncement] = useState('');
   const summary = useRef(null);
+  const bagDialog = useRef(null);
+  const bagTrigger = useRef(null);
+  const [bagOpen, setBagOpen] = useState(false);
+
+  useEffect(() => {
+    if (!bagOpen) return;
+    const dialog = bagDialog.current;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      bagTrigger.current?.focus({ preventScroll: true });
+    };
+  }, [bagOpen]);
   const count = selection.reduce((sum, line) => sum + line.quantity, 0);
   const total = selection.reduce((sum, line) => sum + line.price * line.quantity, 0);
   const message = [
@@ -58,7 +74,7 @@ export default function MenuSection({ onOpenImage }) {
     setSelection(current => current.some(entry => entry.id === line.id)
       ? current.map(entry => entry.id === line.id ? { ...entry, quantity: Math.min(99, entry.quantity + 1) } : entry)
       : [...current, { ...line, quantity: 1 }]);
-    setAnnouncement(`${line.name}${line.size ? ` ${line.size}` : ''} adicionado ao pedido.`);
+    setAnnouncement(`${line.name}${line.size ? ` ${line.size}` : ''} adicionado ao saco.`);
   }
 
   function changeQuantity(id, delta) {
@@ -89,8 +105,23 @@ export default function MenuSection({ onOpenImage }) {
         </div>
       </div>
       <p className="sr-only" role="status">{announcement}</p>
-      <details className="menu-order" open>
-        <summary ref={summary}>O meu pedido ({count}) <strong>{money(total)}</strong></summary>
+      <button ref={bagTrigger} type="button" className="menu-bag-trigger"
+        aria-haspopup="dialog" aria-label={`Abrir saco, ${count} artigos, ${money(total)}`}
+        onClick={() => setBagOpen(true)}>
+        <svg width="25" height="28" viewBox="0 0 24 28" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+          <path d="M3 8h18l1 18H2L3 8Z" /><path d="M7 10V6a5 5 0 0 1 10 0v4" />
+        </svg>
+        <span>O meu saco <span className="menu-bag-count">{count}</span></span>
+        <strong>{money(total)}</strong>
+      </button>
+      <dialog ref={bagDialog} className="menu-bag-dialog" aria-labelledby="bag-heading"
+        onCancel={event => { event.preventDefault(); setBagOpen(false); }}
+        onClick={event => { if (event.target === event.currentTarget) setBagOpen(false); }}>
+        <div className="menu-bag-panel">
+        <header className="menu-bag-heading">
+          <div><h2 id="bag-heading" ref={summary} tabIndex={-1}>O meu saco</h2><p>{count} {count === 1 ? 'artigo' : 'artigos'}</p></div>
+          <button type="button" className="menu-select" autoFocus onClick={() => setBagOpen(false)} aria-label="Fechar saco">Fechar</button>
+        </header>
         <div className="menu-order-body">
           {selection.length ? (
             <>
@@ -110,15 +141,18 @@ export default function MenuSection({ onOpenImage }) {
                   </li>
                 ))}
               </ul>
+              <p className="menu-bag-total"><span>Total</span><strong>{money(total)}</strong></p>
               <div className="menu-order-actions">
-                <button type="button" className="menu-select" onClick={() => { summary.current?.focus(); setSelection([]); setAnnouncement('Pedido limpo.'); }}>Limpar pedido</button>
+                <button type="button" className="menu-select" onClick={() => { summary.current?.focus(); setSelection([]); setAnnouncement('Saco vazio.'); }}>Esvaziar saco</button>
                 <a className="button button-dark" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Confirmar pelo WhatsApp</a>
               </div>
               <p className="menu-order-note">Reveja a mensagem e toque em Enviar no WhatsApp. O pedido fica confirmado após a resposta da loja.</p>
             </>
-          ) : <p>Selecione os seus favoritos no menu para preparar o pedido.</p>}
+          ) : <div className="menu-bag-empty"><p>O seu saco está vazio.</p><p>Escolha os seus favoritos no menu e adicione-os ao saco.</p></div>}
+          <button type="button" className="menu-bag-continue" onClick={() => setBagOpen(false)}>Continuar a escolher</button>
         </div>
-      </details>
+        </div>
+      </dialog>
       <p className="menu-price-note">Preços em meticais (MT). Escolha uma categoria para consultar o menu.</p>
       <div className="menu-content" id="menu-content" role="region" aria-label={active}>
         {visibleGroups.map(group => (
@@ -140,9 +174,9 @@ export default function MenuSection({ onOpenImage }) {
                   <div className="menu-item-actions">
                     {item.prices.map((price, option) => (
                       <button type="button" className="menu-select" key={option}
-                        aria-label={`Selecionar ${item.name}${item.prices.length > 1 ? ` ${['M', 'L'][option]}` : ''}, ${money(price)}`}
+                        aria-label={`Adicionar ao saco ${item.name}${item.prices.length > 1 ? ` ${['M', 'L'][option]}` : ''}, ${money(price)}`}
                         onClick={() => addItem(group, item, option)}>
-                        {item.prices.length > 1 ? `Selecionar ${['M', 'L'][option]}` : 'Selecionar'}
+                        {item.prices.length > 1 ? `Adicionar ${['M', 'L'][option]} ao saco` : 'Adicionar ao saco'}
                       </button>
                     ))}
                   </div>
