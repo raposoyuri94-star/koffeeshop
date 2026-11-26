@@ -6,8 +6,10 @@ for (const width of [320, 1366]) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('./');
     await page.getByRole('button', { name: 'Adicionar Single espresso, 100 MT', exact: true }).click();
+    await page.getByRole('button', { name: 'Café quente', exact: true }).click();
     const hotCoffee = page.getByRole('region', { name: 'Hot coffee', exact: true });
     await hotCoffee.getByRole('button', { name: 'Adicionar Caramel Macchiato, 350 MT', exact: true }).click();
+    await page.getByRole('button', { name: 'Café gelado', exact: true }).click();
     const icedCoffee = page.getByRole('region', { name: 'Iced coffee', exact: true });
     await icedCoffee.getByRole('button', { name: 'Adicionar Caramel Macchiato, 400 MT', exact: true }).click();
     await page.getByRole('button', { name: 'Para comer', exact: true }).click();

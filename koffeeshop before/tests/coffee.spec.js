@@ -30,9 +30,9 @@ for (const viewport of viewports) {
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth > 0)).toBe(true);
     }
-    for (const category of ['Café e chocolate', 'Matcha e bebidas', 'Para comer']) {
+    for (const category of ['Café quente', 'Café gelado', 'Matcha e chá', 'Outras bebidas', 'Para comer', 'Extras']) {
       await page.getByRole('button', { name: category, exact: true }).click();
-      await expect(page.getByRole('region', { name: category, exact: true })).toBeVisible();
+      await expect(page.locator('.menu-sheet')).toBeVisible();
       const overflow = await page.locator('.hero-content, .story-copy, .menu-sheet, .seasonal-copy, .catering-copy, .closing-note > p, .footer-wordmark, h1, h2, h3').evaluateAll(elements => elements.filter(element => {
         const bounds = element.getBoundingClientRect();
         return bounds.left < -1 || bounds.right > innerWidth + 1 || element.scrollWidth > element.clientWidth + 1;
@@ -48,8 +48,8 @@ test('menu categories show readable items and prices with sandwich photos', asyn
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   for (const [category, section, name, price] of [
-    ['Café e chocolate', 'Espresso & chá', 'Single espresso', '100 MT'],
-    ['Matcha e bebidas', 'Iced matcha', 'Iced Matcha latte', '300 MT'],
+    ['Café quente', 'Espresso & chá', 'Single espresso', '100 MT'],
+    ['Matcha e chá', 'Iced matcha', 'Iced Matcha latte', '300 MT'],
     ['Para comer', 'Pequeno-almoço', 'English Breakfast', '700 MT'],
   ]) {
     const button = page.getByRole('button', { name: category, exact: true });
@@ -62,7 +62,8 @@ test('menu categories show readable items and prices with sandwich photos', asyn
     await expect(region.locator('img')).toHaveCount(category === 'Para comer' ? 2 : 0);
   }
   await expect(page.getByText('07:30h – 11:00h', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Café e chocolate', exact: true }).click();
+  await expect(page.getByRole('group', { name: 'Categoria do menu', exact: true }).getByRole('button')).toHaveCount(6);
+  await page.getByRole('button', { name: 'Café gelado', exact: true }).click();
   await expect(page.getByRole('region', { name: 'Iced cappuccino', exact: true }).getByRole('listitem').filter({ has: page.getByRole('heading', { name: 'Iced Caramel', exact: true }) })).toContainText('330 / 380 MT');
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });

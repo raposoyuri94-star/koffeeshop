@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { menu } from '../data/menu';
 
+const menuSections = Object.entries(menu).flatMap(([category, groups]) => groups.map(group => ({
+  ...group, category, id: `${category}:${group.name}`,
+})));
+const categories = [
+  { name: 'Café quente', groups: ['Espresso & chá', 'Hot coffee', 'Hot chocolate'] },
+  { name: 'Café gelado', groups: ['Frappuccino', 'Iced cappuccino', 'Iced coffee'] },
+  { name: 'Matcha e chá', groups: ['Iced matcha', 'Iced tea'] },
+  { name: 'Outras bebidas', groups: ['Kids menu', 'Mocktails energéticos', 'Affogato', 'Bebidas'] },
+  { name: 'Para comer', groups: ['Petiscos', 'Asinhas & tiras de frango', 'Tostas', 'Croissant brioche', 'Sandes', 'Pequeno-almoço'] },
+  { name: 'Extras', groups: ['Extras'] },
+];
+
 export default function MenuSection({ onOpenImage }) {
-  const [category, setCategory] = useState(Object.keys(menu)[0]);
+  const [activeSection, setActiveSection] = useState(categories[0].name);
   const [selection, setSelection] = useState([]);
   const [announcement, setAnnouncement] = useState('');
-  const selectedMenu = menu[category];
+  const activeCategory = categories.find(category => category.name === activeSection);
+  const visibleGroups = menuSections.filter(group => activeCategory.groups.includes(group.name));
   const count = selection.reduce((sum, item) => sum + item.quantity, 0);
   const total = selection.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const money = value => `${value.toLocaleString('pt-MZ')} MT`;
 
   function addItem(group, item, price, option) {
-    const id = JSON.stringify([category, group.name, item.name, option]);
+    const id = JSON.stringify([group.category, group.name, item.name, option]);
     setSelection(current => {
       const existing = current.find(line => line.id === id);
       return existing
@@ -37,18 +50,13 @@ export default function MenuSection({ onOpenImage }) {
       </div>
       <div className="menu-toolbar">
         <div className="menu-tabs" role="group" aria-label="Categoria do menu">
-          {Object.keys(menu).map(name => (
-            <button
-              className={category === name ? 'active' : ''}
-              aria-pressed={category === name}
-              key={name}
-              onClick={() => setCategory(name)}
-            >
-              {name}
-            </button>
+          {categories.map(category => (
+            <button type="button" key={category.name}
+              className={activeSection === category.name ? 'active' : ''}
+              aria-pressed={activeSection === category.name}
+              onClick={() => setActiveSection(category.name)}>{category.name}</button>
           ))}
         </div>
-        <span className="menu-milk-note">Preços em meticais (MT)</span>
       </div>
       <p className="menu-announcement" role="status" aria-label="Seleção do menu">{announcement}</p>
       {count > 0 && (
@@ -76,11 +84,11 @@ export default function MenuSection({ onOpenImage }) {
           </div>
         </details>
       )}
-      <div className="menu-sheet" key={category} role="region" aria-label={category}>
-        {selectedMenu.map(group => (
-          <section className="menu-group" key={group.name} aria-label={group.name}>
+      <div className="menu-sheet" key={activeSection} role="region" aria-label={activeSection}>
+        {visibleGroups.map(group => (
+          <section className="menu-group" key={group.id} aria-label={group.name === 'Extras' ? `Extras ${group.category === 'Para comer' ? 'para comer' : 'de bebidas'}` : group.name}>
             <header className="menu-group-heading">
-              <h3>{group.name}</h3>
+              <h3>{group.name === 'Extras' ? `Extras ${group.category === 'Para comer' ? 'para comer' : 'de bebidas'}` : group.name}</h3>
               {group.note && <p>{group.note}</p>}
             </header>
             <ul className="menu-items">
