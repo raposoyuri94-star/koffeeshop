@@ -15,8 +15,11 @@ import GalleryPage from './pages/GalleryPage';
 import useCoffeeRain from './hooks/useCoffeeRain';
 import useInitialHashScroll from './hooks/useInitialHashScroll';
 import { images } from './data/images';
+import ShoppingBag from './components/ShoppingBag';
+import useMenuOrder from './hooks/useMenuOrder';
 
 export default function App() {
+  const order = useMenuOrder();
   const isSeasonalPage = window.location.pathname.endsWith('/bebidas-sazonais.html');
   const isTermsPage = window.location.pathname.endsWith('/termos-e-condicoes.html');
   const isGalleryPage = window.location.pathname.endsWith('/galeria.html');
@@ -53,7 +56,7 @@ export default function App() {
           <>
             <HeroSection onMakeItRain={makeItRain} onOpenImage={setPreviewImage} />
             <StorySection onOpenImage={setPreviewImage} />
-            <MenuSection onOpenImage={setPreviewImage} />
+            <MenuSection onOpenImage={setPreviewImage} order={order} />
             <CateringSection onOpenCatering={openCatering} onOpenImage={setPreviewImage} />
             <LocationSection />
           </>
@@ -61,6 +64,7 @@ export default function App() {
       </main>
       <SiteFooter onOpenCatering={openCatering} onOpenSeasonalImage={openSeasonalImage} homeHref={homeHref} />
       <CateringDialog open={cateringOpen} onClose={closeCatering} />
+      <ShoppingBag order={order} />
       {previewImage && <ImageViewer image={previewImage} onClose={() => setPreviewImage(null)} />}
       <CoffeeRain visible={isRaining} batch={batch} />
     </div>
