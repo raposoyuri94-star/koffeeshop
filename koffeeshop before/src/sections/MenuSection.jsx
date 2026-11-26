@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { images } from '../data/images';
 import { menu } from '../data/menu';
 
-export default function MenuSection({ onOpenImage }) {
+export default function MenuSection() {
   const [category, setCategory] = useState(Object.keys(menu)[0]);
   const selectedMenu = menu[category];
-  const menuImage = images[selectedMenu.image];
 
   return (
     <section className="menu-section section-space" id="menu" aria-labelledby="menu-heading">
@@ -29,31 +27,29 @@ export default function MenuSection({ onOpenImage }) {
             </button>
           ))}
         </div>
-        <span className="menu-milk-note">Diga-nos como gosta do seu café.</span>
+        <span className="menu-milk-note">Preços em meticais (MT)</span>
       </div>
-      <figure className="menu-sheet">
-        <button
-          type="button"
-          className="menu-sheet-link"
-          aria-haspopup="dialog"
-          aria-label={`Ampliar o menu de ${category.toLowerCase()}`}
-          onClick={() => onOpenImage({
-            ...menuImage,
-            title: category === 'Para comer' ? 'Menu para comer' : `Menu de ${category.toLowerCase()}`,
-            width: selectedMenu.width,
-            height: selectedMenu.height,
-          })}
-        >
-          <img
-            key={category}
-            src={menuImage.src}
-            alt={menuImage.alt}
-            width={selectedMenu.width}
-            height={selectedMenu.height}
-            loading="lazy"
-          />
-        </button>
-      </figure>
+      <div className="menu-sheet" key={category} role="region" aria-label={category}>
+        {selectedMenu.map(group => (
+          <section className="menu-group" key={group.name} aria-label={group.name}>
+            <header className="menu-group-heading">
+              <h3>{group.name}</h3>
+              {group.note && <p>{group.note}</p>}
+            </header>
+            <ul className="menu-items">
+              {group.items.map(item => (
+                <li className="menu-item" key={item.name}>
+                  <div className="menu-item-copy">
+                    <h4>{item.name}</h4>
+                    {item.description && <p>{item.description}</p>}
+                  </div>
+                  <span className="menu-item-price">{item.prices.join(' / ')} <span>MT</span></span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
       <a className="text-link" href={`${import.meta.env.BASE_URL}bebidas-sazonais.html`}>
         Ver as bebidas da estação
       </a>

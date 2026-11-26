@@ -32,7 +32,7 @@ for (const viewport of viewports) {
     }
     for (const category of ['Café e chocolate', 'Matcha e bebidas', 'Para comer']) {
       await page.getByRole('button', { name: category, exact: true }).click();
-      await expect.poll(() => page.locator('.menu-sheet img').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+      await expect(page.getByRole('region', { name: category, exact: true })).toBeVisible();
       const overflow = await page.locator('.hero-content, .story-copy, .menu-sheet, .seasonal-copy, .catering-copy, .closing-note > p, .footer-wordmark, h1, h2, h3').evaluateAll(elements => elements.filter(element => {
         const bounds = element.getBoundingClientRect();
         return bounds.left < -1 || bounds.right > innerWidth + 1 || element.scrollWidth > element.clientWidth + 1;
@@ -44,33 +44,27 @@ for (const viewport of viewports) {
   });
 }
 
-test('uploaded menu pages switch categories and open in a closable viewer', async ({ page }) => {
+test('menu categories show readable items and prices without images', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
-  await expect(page.locator('html')).toHaveAttribute('lang', 'pt-MZ');
-  await expect(page.locator('#favorites, a[href="#favorites"]')).toHaveCount(0);
-  const brokenAnchors = await page.locator('a[href^="#"]').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash));
-  expect(brokenAnchors).toEqual([]);
-  for (const [category, filename] of [
-    ['Café e chocolate', 'Koffee%208.jpg'],
-    ['Matcha e bebidas', 'koffee%207.jpg'],
-    ['Para comer', 'koffee%206.jpg'],
+  for (const [category, section, name, price] of [
+    ['Café e chocolate', 'Espresso & chá', 'Single espresso', '100 MT'],
+    ['Matcha e bebidas', 'Iced matcha', 'Iced Matcha latte', '300 MT'],
+    ['Para comer', 'Pequeno-almoço', 'English Breakfast', '700 MT'],
   ]) {
     const button = page.getByRole('button', { name: category, exact: true });
     await button.click();
     await expect(button).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.menu-sheet img')).toHaveAttribute('src', new RegExp(filename + '$'));
+    const region = page.getByRole('region', { name: category, exact: true });
+    const group = region.getByRole('region', { name: section, exact: true });
+    const row = group.getByRole('listitem').filter({ has: page.getByRole('heading', { name, exact: true }) });
+    await expect(row).toContainText(price);
+    await expect(region.locator('img')).toHaveCount(0);
   }
-  const initialURL = page.url();
-  const trigger = page.locator('.menu-sheet-link');
-  await trigger.click();
-  const viewer = page.getByRole('dialog', { name: 'Menu para comer', exact: true });
-  await expect(viewer).toBeVisible();
-  await expect.poll(() => viewer.locator('img').evaluate(image => image.complete && image.naturalWidth === 1284)).toBe(true);
-  await viewer.getByRole('button', { name: 'Fechar imagem' }).click();
-  await expect(viewer).toHaveCount(0);
-  await expect(trigger).toBeFocused();
-  expect(page.url()).toBe(initialURL);
+  await expect(page.getByText('07:30h – 11:00h', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Café e chocolate', exact: true }).click();
+  await expect(page.getByRole('region', { name: 'Iced cappuccino', exact: true }).getByRole('listitem').filter({ has: page.getByRole('heading', { name: 'Iced Caramel', exact: true }) })).toContainText('330 / 380 MT');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
 test('mobile navigation closes with Escape and returns keyboard focus', async ({ page }) => {

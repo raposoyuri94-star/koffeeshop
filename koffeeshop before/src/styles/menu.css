@@ -60,25 +60,81 @@
 }
 
 .menu-milk-note {
-  font-size: 12px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .menu-sheet {
-  margin: 30px 0 0;
+  margin: 36px 0 0;
+  columns: 2;
+  column-gap: clamp(32px, 5vw, 80px);
 }
 
-.menu-sheet-link {
-  display: block;
-  width: 100%;
+.menu-group {
+  break-inside: avoid;
+  padding-bottom: 36px;
+}
+
+.menu-group-heading {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 14px;
+}
+
+.menu-group-heading h3 {
+  font-size: clamp(26px, 2.6vw, 36px);
+}
+
+.menu-group-heading p {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.menu-items {
+  list-style: none;
   padding: 0;
-  cursor: zoom-in;
-  border: 1px solid var(--light-gray);
-  background: var(--soft-gray);
+  margin: 0;
 }
 
-.menu-sheet img {
-  height: auto;
-  object-fit: contain;
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--light-gray);
+  break-inside: avoid;
+}
+
+.menu-item-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.menu-item h4 {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.menu-item p {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #494949;
+}
+
+.menu-item-price {
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.menu-item-price > span {
+  font-size: 12px;
+  font-weight: 400;
 }
 
 @media (min-width: 1700px) {
@@ -93,9 +149,6 @@
   }
   .menu-tabs button {
     padding: 12px 19px;
-  }
-  .menu-milk-note {
-    display: none;
   }
 }
 
@@ -114,6 +167,7 @@
 @media (max-width: 650px) {
   .menu-sheet {
     margin-top: 22px;
+    columns: 1;
   }
   .menu-heading .handwritten {
     font-size: 18px;
@@ -127,13 +181,16 @@
   .menu-toolbar {
     margin-top: 28px;
     padding-bottom: 22px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
   }
   .menu-tabs {
     gap: 8px;
   }
   .menu-tabs button {
-    font-size: 12px;
-    padding: 11px 17px;
+    font-size: 14px;
+    padding: 11px 15px;
   }
 }
 

@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
 
 for (const width of [320, 1366]) {
-  test(`menu image can be closed without leaving the page at ${width}px`, async ({ page }) => {
+  test(`seasonal image can be closed without leaving the page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('./');
+    await page.goto('./bebidas-sazonais.html');
     const initialURL = page.url();
-    const trigger = page.getByRole('button', { name: 'Ampliar o menu de café e chocolate', exact: true });
+    const trigger = page.getByRole('button', { name: 'Ampliar o cartaz de bebidas de abóbora e especiarias', exact: true });
 
     for (const action of ['button', 'escape', 'backdrop']) {
       await trigger.click();
-      const viewer = page.getByRole('dialog', { name: 'Menu de café e chocolate', exact: true });
+      const viewer = page.getByRole('dialog', { name: 'Bebidas da estação', exact: true });
       const close = viewer.getByRole('button', { name: 'Fechar imagem', exact: true });
       await expect(viewer).toBeVisible();
       await expect(close).toBeFocused();
@@ -25,7 +25,7 @@ for (const width of [320, 1366]) {
         await expect(close).toBeFocused();
         await zoom.click();
         await expect(viewer.getByRole('button', { name: 'Ajustar imagem ao ecrã' })).toBeVisible();
-        await expect.poll(() => viewer.locator('img').evaluate(image => image.getBoundingClientRect().width)).toBe(1284);
+        await expect.poll(() => viewer.locator('img').evaluate(image => image.getBoundingClientRect().width)).toBe(1258);
         await expect(close).toBeInViewport();
         await close.click();
       } else if (action === 'escape') {
